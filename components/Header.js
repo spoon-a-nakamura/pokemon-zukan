@@ -1,10 +1,13 @@
 import styled from '@emotion/styled'
+// import Link from 'next/link'
 
 export default function Header() {
   return (
-    <Wrapper>
-      <Heading>POKEMON ZUKAN</Heading>
-    </Wrapper>
+    <a href='/'>
+      <Wrapper>
+        <Heading>POKEMON ZUKAN</Heading>
+      </Wrapper>
+    </a>
   )
 }
 

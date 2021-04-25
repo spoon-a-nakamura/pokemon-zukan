@@ -1,14 +1,10 @@
 import styled from '@emotion/styled'
-import Link from 'next/link'
+import Router from 'next/router'
 
 export default function Back() {
   return (
-    <Wrapper>
-      <Link href='/'>
-        <a>
-          <Heading>Back to Index</Heading>
-        </a>
-      </Link>
+    <Wrapper onClick={() => Router.back()}>
+      <Heading>Back to Index</Heading>
     </Wrapper>
   )
 }
@@ -24,6 +20,7 @@ const Wrapper = styled.div`
   position: fixed;
   width: 100%;
   z-index: 10;
+  cursor: pointer;
 `
 const Heading = styled.h1`
   font-size: 50px;
