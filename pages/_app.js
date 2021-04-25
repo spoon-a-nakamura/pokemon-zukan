@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 import { adobeLoader } from '../fonts/adobeLoader'
 import GlobalCss from '../components/GlobalCss'
+import { AnimateSharedLayout } from 'framer-motion'
 
 export default function App({ Component, pageProps, router }) {
   useEffect(() => {
@@ -15,6 +16,9 @@ export default function App({ Component, pageProps, router }) {
       </Head>
       <GlobalCss />
       <Component {...pageProps} />
+      <AnimateSharedLayout type='crossfade'>
+        <Component {...pageProps} />
+      </AnimateSharedLayout>
     </>
   )
 }

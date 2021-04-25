@@ -3,6 +3,7 @@ import pokemonData from '../data/pokemon.json'
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 function zeroPadding(number, length) {
   return (Array(length).join('0') + number).slice(-length)
@@ -10,28 +11,34 @@ function zeroPadding(number, length) {
 
 export default function PokemonList() {
   const [load, setLoad] = useState([...Array(pokemonData.length)].fill(false))
-
   function show(index) {
     setLoad((currentState) => {
       return currentState.map((state, innerIndex) =>
-        index === innerIndex ? !state : state
+        state === false && index === innerIndex ? !state : state
       )
     })
   }
   const pocketMonsters = pokemonData.map((pocketMonster, index) => {
     return (
-      <List key={index} loaded={load[index]}>
+      <List
+        key={index}
+        loaded={load[index]}
+        layoutId={`card-wrapper-${zeroPadding(index + 1, 3)}`}
+      >
         <Link href={`${zeroPadding(index + 1, 3)}`}>
           <LinkContents loaded={load[index]}>
             <LinkContentsInner loaded={load[index]}>
-              <NameEnglish>{pocketMonster.name.english}</NameEnglish>
-              <NameJapanese>{pocketMonster.name.japanese}</NameJapanese>
+              <NameWrapper layoutId={`card-name-${zeroPadding(index + 1, 3)}`}>
+                <NameEnglish>{pocketMonster.name.english}</NameEnglish>
+                <NameJapanese>{pocketMonster.name.japanese}</NameJapanese>
+              </NameWrapper>
               <Image
                 src={`/images/${zeroPadding(index + 1, 3)}.png`}
                 alt={pocketMonster.name.japanese}
                 width={400}
                 height={400}
                 onLoad={() => show(index)}
+                layoutId={`card-image-${zeroPadding(index + 1, 3)}`}
               />
             </LinkContentsInner>
           </LinkContents>
@@ -55,7 +62,7 @@ const ListWrap = styled.ul`
   width: 100%;
   list-style: none;
 `
-const List = styled.li`
+const List = styled(motion.li)`
   width: 15%;
   display: flex;
   flex-wrap: wrap;
@@ -87,6 +94,7 @@ const LinkContentsInner = styled.div`
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
   transform: ${({ loaded }) => (loaded ? 'scale(1)' : 'scale(0.5)')};
 `
+const NameWrapper = styled(motion.div)``
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;

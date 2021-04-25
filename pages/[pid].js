@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import Image from 'next/image'
 import Back from '../components/Back'
 import Container from '../components/Container'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Post() {
   const router = useRouter()
@@ -17,27 +18,36 @@ export default function Post() {
       <Back />
       <Container>
         <Wrapper>
-          <Card>
-            <NameEnglish>{pokemon.name.english}</NameEnglish>
-            <NameJapanese>{pokemon.name.japanese}</NameJapanese>
-            <Image
-              src={`/images/${pid}.png`}
-              alt={pokemon.name.japanese}
-              width={400}
-              height={400}
-            />
-            <TypeListWrap>
-              <TypeList>{types}</TypeList>
-            </TypeListWrap>
-            <StatusListWrap>
-              <StatusList>HP：{pokemon.base.HP}</StatusList>
-              <StatusList>攻撃力：{pokemon.base.Attack}</StatusList>
-              <StatusList>防御力：{pokemon.base.Defense}</StatusList>
-              <StatusList>特殊攻撃力：{pokemon.base['Sp. Attack']}</StatusList>
-              <StatusList>特殊防御力：{pokemon.base['Sp. Defense']}</StatusList>
-              <StatusList>スピード：{pokemon.base.Speed}</StatusList>
-            </StatusListWrap>
-          </Card>
+          <AnimatePresence>
+            <Card layoutId={`card-wrapper-${pid}`}>
+              <NameWrapper layoutId={`card-name-${pid}`}>
+                <NameEnglish>{pokemon.name.english}</NameEnglish>
+                <NameJapanese>{pokemon.name.japanese}</NameJapanese>
+              </NameWrapper>
+              <Image
+                src={`/images/${pid}.png`}
+                alt={pokemon.name.japanese}
+                width={400}
+                height={400}
+                layoutId={`card-image-${pid}`}
+              />
+              <TypeListWrap>
+                <TypeList>{types}</TypeList>
+              </TypeListWrap>
+              <StatusListWrap>
+                <StatusList>HP：{pokemon.base.HP}</StatusList>
+                <StatusList>攻撃力：{pokemon.base.Attack}</StatusList>
+                <StatusList>防御力：{pokemon.base.Defense}</StatusList>
+                <StatusList>
+                  特殊攻撃力：{pokemon.base['Sp. Attack']}
+                </StatusList>
+                <StatusList>
+                  特殊防御力：{pokemon.base['Sp. Defense']}
+                </StatusList>
+                <StatusList>スピード：{pokemon.base.Speed}</StatusList>
+              </StatusListWrap>
+            </Card>
+          </AnimatePresence>
         </Wrapper>
       </Container>
     </>
@@ -52,7 +62,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
 `
-const Card = styled.div`
+const Card = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -65,6 +75,7 @@ const Card = styled.div`
   width: fit-content;
   margin: auto;
 `
+const NameWrapper = styled(motion.div)``
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
