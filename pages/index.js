@@ -138,6 +138,7 @@ const ModalContent = styled.div`
 const ModalCard = styled(motion.div)`
   pointer-events: initial;
   cursor: pointer;
+  max-width: 90%;
 `
 const ModalButton = styled(motion.div)`
   background: #000;
