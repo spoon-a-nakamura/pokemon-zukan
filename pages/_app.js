@@ -3,8 +3,6 @@ import React, { useEffect } from 'react'
 import { adobeLoader } from '../fonts/adobeLoader'
 import GlobalCss from '../components/GlobalCss'
 import { AnimateSharedLayout } from 'framer-motion'
-// import { Provider } from 'react-redux'
-// import { store } from '../store/index'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -18,11 +16,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <GlobalCss />
 
-      {/* <Provider store={store}> */}
-      <AnimateSharedLayout type='crossfade'>
+      <AnimateSharedLayout>
         <Component {...pageProps} />
       </AnimateSharedLayout>
-      {/* </Provider> */}
     </>
   )
 }
