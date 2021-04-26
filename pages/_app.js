@@ -2,7 +2,6 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 import { adobeLoader } from '../fonts/adobeLoader'
 import GlobalCss from '../components/GlobalCss'
-import { AnimateSharedLayout } from 'framer-motion'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -15,10 +14,7 @@ export default function App({ Component, pageProps }) {
         <link rel='icon' href='favicon.gif' type='image/gif' />
       </Head>
       <GlobalCss />
-
-      <AnimateSharedLayout>
-        <Component {...pageProps} />
-      </AnimateSharedLayout>
+      <Component {...pageProps} />
     </>
   )
 }
