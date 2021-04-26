@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
-import pokemonData from '../data/pokemon.json'
+import pokemonData from '../data/pokemon_full.json'
 import styled from '@emotion/styled'
-import Image from 'next/image'
 import Back from '../components/Back'
 import Container from '../components/Container'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -9,9 +8,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function Post() {
   const router = useRouter()
   const { pid } = router.query
-  const pokemon = pokemonData[parseInt(pid, 10)]
-  const types = pokemon.type.map((type, index) => {
-    return <Type key={index}>{type}</Type>
+  const pokemon = pokemonData[parseInt(pid, 10) - 1] // 10進数にして、id1を0番目に指定
+  const types = pokemon.type.map((type) => {
+    return <Type key={pokemon}>{type}</Type>
   })
   return (
     <>
@@ -20,7 +19,7 @@ export default function Post() {
         <Wrapper>
           <AnimatePresence>
             <Card layoutId={`card-wrapper-${pid}`}>
-              <NameWrapper layoutId={`card-name-${pid}`}>
+              <NameWrapper>
                 <NameEnglish>{pokemon.name.english}</NameEnglish>
                 <NameJapanese>{pokemon.name.japanese}</NameJapanese>
               </NameWrapper>
@@ -29,7 +28,6 @@ export default function Post() {
                 alt={pokemon.name.japanese}
                 width={400}
                 height={400}
-                layoutId={`card-image-${pid}`}
               />
               <TypeListWrap>
                 <TypeList>{types}</TypeList>
@@ -75,7 +73,7 @@ const Card = styled(motion.div)`
   width: fit-content;
   margin: auto;
 `
-const NameWrapper = styled(motion.div)``
+const NameWrapper = styled.div``
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
@@ -88,6 +86,11 @@ const NameEnglish = styled.div`
   text-transform: uppercase;
   text-align: center;
 `
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+`
 const TypeListWrap = styled.ul``
 const TypeList = styled.li``
 const Type = styled.span``
@@ -96,7 +99,3 @@ const StatusListWrap = styled.ul``
 const StatusList = styled.ul`
   font-family: tbcgothic-std, sans-serif;
 `
-const StatusKey = styled.span`
-  text-transform: uppercase;
-`
-const StatusValue = styled.span``

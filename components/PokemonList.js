@@ -1,55 +1,54 @@
 import { useState } from 'react'
-import pokemonData from '../data/pokemon.json'
+import pokemonData from '../data/pokemon_full.json'
 import styled from '@emotion/styled'
-import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-function zeroPadding(number, length) {
-  return (Array(length).join('0') + number).slice(-length)
+function zeroPadding(id) {
+  return `${id}`.padStart(3, '0')
+}
+
+const PokemonCard = ({ pokemon }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
+  return (
+    <AnimatePresence>
+      <Link href={`/${zeroPadding(pokemon.id)}`} passHref>
+        <LinkContents loaded={isLoaded}>
+          <LinkContentsInner loaded={isLoaded}>
+            <NameWrapper>
+              <NameEnglish>{pokemon.name.english}</NameEnglish>
+              <NameJapanese>{pokemon.name.japanese}</NameJapanese>
+            </NameWrapper>
+            <Image
+              src={`/images/${zeroPadding(pokemon.id)}.png`}
+              alt={pokemon.name.japanese}
+              onLoad={() => setIsLoaded(true)}
+              width={400}
+              height={400}
+              loading='lazy'
+            />
+          </LinkContentsInner>
+        </LinkContents>
+      </Link>
+    </AnimatePresence>
+  )
 }
 
 export default function PokemonList() {
-  const [load, setLoad] = useState([...Array(pokemonData.length)].fill(false))
-  function show(index) {
-    setLoad((currentState) => {
-      return currentState.map((state, innerIndex) =>
-        state === false && index === innerIndex ? !state : state
-      )
-    })
-  }
-  const pocketMonsters = pokemonData.map((pocketMonster, index) => {
+  const pokemonAll = pokemonData.map((pokemon) => {
     return (
       <List
-        key={index}
-        loaded={load[index]}
-        layoutId={`card-wrapper-${zeroPadding(index + 1, 3)}`}
+        key={pokemon.id}
+        layoutId={`card-wrapper-${zeroPadding(pokemon.id)}`}
       >
-        <Link href={`${zeroPadding(index + 1, 3)}`}>
-          <LinkContents loaded={load[index]}>
-            <LinkContentsInner loaded={load[index]}>
-              <NameWrapper layoutId={`card-name-${zeroPadding(index + 1, 3)}`}>
-                <NameEnglish>{pocketMonster.name.english}</NameEnglish>
-                <NameJapanese>{pocketMonster.name.japanese}</NameJapanese>
-              </NameWrapper>
-              <Image
-                src={`/images/${zeroPadding(index + 1, 3)}.png`}
-                alt={pocketMonster.name.japanese}
-                width={400}
-                height={400}
-                onLoad={() => show(index)}
-                layoutId={`card-image-${zeroPadding(index + 1, 3)}`}
-              />
-            </LinkContentsInner>
-          </LinkContents>
-        </Link>
-        <ListNumber>No.{`${zeroPadding(index + 1, 3)}`}</ListNumber>
+        <PokemonCard pokemon={pokemon} />
+        <ListNumber>No.{`${zeroPadding(pokemon.id)}`}</ListNumber>
       </List>
     )
   })
   return (
     <Wrapper>
-      <ListWrap>{pocketMonsters}</ListWrap>
+      <ListWrap>{pokemonAll}</ListWrap>
     </Wrapper>
   )
 }
@@ -69,6 +68,7 @@ const List = styled(motion.li)`
   flex-direction: column;
   margin-bottom: 2%;
 `
+
 const LinkContents = styled.a`
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@ const LinkContentsInner = styled.div`
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
   transform: ${({ loaded }) => (loaded ? 'scale(1)' : 'scale(0.5)')};
 `
-const NameWrapper = styled(motion.div)``
+const NameWrapper = styled.div``
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
@@ -106,6 +106,11 @@ const NameEnglish = styled.div`
   font-size: 1.6vw;
   text-transform: uppercase;
   text-align: center;
+`
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 `
 const ListNumber = styled.p`
   font-size: 14px;
