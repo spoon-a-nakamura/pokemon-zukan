@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import ZeroPadding from './ZeroPadding'
+import ProgressBar from './ProgressBar'
 
 export default function PokemonCard({ id, pokemon }) {
   const types = pokemon.type.map((type, index) => {
-    return <Type key={index}>{type}</Type>
+    return <TypeList key={index}>{type}</TypeList>
   })
   return (
     <Card layoutId={id - 1}>
@@ -18,16 +19,36 @@ export default function PokemonCard({ id, pokemon }) {
         width={400}
         height={400}
       />
-      <TypeListWrap>
-        <TypeList>{types}</TypeList>
-      </TypeListWrap>
+      <TypeListWrap>{types}</TypeListWrap>
       <StatusListWrap>
-        <StatusList>HP：{pokemon.base.HP}</StatusList>
-        <StatusList>攻撃力：{pokemon.base.Attack}</StatusList>
-        <StatusList>防御力：{pokemon.base.Defense}</StatusList>
-        <StatusList>特殊攻撃力：{pokemon.base['Sp. Attack']}</StatusList>
-        <StatusList>特殊防御力：{pokemon.base['Sp. Defense']}</StatusList>
-        <StatusList>スピード：{pokemon.base.Speed}</StatusList>
+        <StatusList>
+          <StatusListCaption>HP：{pokemon.base.HP}</StatusListCaption>
+          <ProgressBar value={pokemon.base.HP} />
+        </StatusList>
+        <StatusList>
+          <StatusListCaption>攻撃力：{pokemon.base.Attack}</StatusListCaption>
+          <ProgressBar value={pokemon.base.Attack} />
+        </StatusList>
+        <StatusList>
+          <StatusListCaption>防御力：{pokemon.base.Defense}</StatusListCaption>
+          <ProgressBar value={pokemon.base.Defense} />
+        </StatusList>
+        <StatusList>
+          <StatusListCaption>
+            特殊攻撃力：{pokemon.base['Sp. Attack']}
+          </StatusListCaption>
+          <ProgressBar value={pokemon.base['Sp. Attack']} />
+        </StatusList>
+        <StatusList>
+          <StatusListCaption>
+            特殊防御力：{pokemon.base['Sp. Defense']}
+          </StatusListCaption>
+          <ProgressBar value={pokemon.base['Sp. Defense']} />
+        </StatusList>
+        <StatusList>
+          <StatusListCaption>スピード：{pokemon.base.Speed}</StatusListCaption>
+          <ProgressBar value={pokemon.base.Speed} />
+        </StatusList>
       </StatusListWrap>
     </Card>
   )
@@ -44,6 +65,7 @@ const Card = styled(motion.div)`
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   width: fit-content;
+  height: fit-content;
   margin: auto;
 `
 const NameWrapper = styled.div``
@@ -60,15 +82,32 @@ const NameEnglish = styled.div`
   text-align: center;
 `
 const Image = styled.img`
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
   object-fit: contain;
+  margin: auto;
 `
-const TypeListWrap = styled.ul``
-const TypeList = styled.li``
-const Type = styled.span``
+const TypeListWrap = styled.ul`
+  display: flex;
+  margin: 20px 0;
+`
+const TypeList = styled.li`
+  font-size: 20px;
+  margin-right: 5px;
+`
 
-const StatusListWrap = styled.ul``
-const StatusList = styled.ul`
+const StatusListWrap = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  max-height: 190px;
+`
+const StatusList = styled.li`
+  display: flex;
+  width: 100%;
+  margin: 5px 0;
+`
+const StatusListCaption = styled.p`
   font-family: tbcgothic-std, sans-serif;
+  margin-right: 10px;
 `
