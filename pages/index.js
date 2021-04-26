@@ -4,7 +4,7 @@ import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonCard from '../components/PokemonCard'
 import styled from '@emotion/styled'
-import pokemonData from '../data/pokemon.json'
+import pokemonData from '../data/pokemon_full.json'
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 import { device } from '../components/MediaQuery'
 
