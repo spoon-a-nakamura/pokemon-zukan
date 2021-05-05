@@ -1,48 +1,26 @@
 import { useState, useEffect } from 'react'
+import styled from '@emotion/styled'
+import Router from 'next/router'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonCard from '../components/PokemonCard'
-import styled from '@emotion/styled'
-import pokemonData from '../data/pokemon.json'
+import { device } from '../components/MediaQuery'
 import {
   motion,
   AnimateSharedLayout,
   AnimatePresence,
   useAnimation,
 } from 'framer-motion'
-import { device } from '../components/MediaQuery'
-import Router from 'next/router'
+import pokemonData from '../data/pokemon.json'
+import pokemonTypes from '../data/types.json'
 
 export default function Home() {
   // リロード
   const reload = () => Router.reload()
 
-  // 詳細と一覧の切り替えState
-  const [showDetailPokemonTarget, setShowDetailPokemonTarget] = useState(null)
-
-  // 検索窓に入力した値を管理するStateと関数
-  const [inputSearchWord, SetInputSearchWord] = useState(pokemonData)
-  const handleSearchWord = (e) => {
-    console.log(`検索中...：${e.target.value}`)
-    return SetInputSearchWord(e.target.value)
-  }
-
   // animationコントロール
   const listAnimationControls = useAnimation()
-
-  // フィルタされた配列を管理するStateと関数
-  const [showingPokemonList, setShowingPokemonList] = useState(inputSearchWord)
-  const filterPokemonList = (e) => {
-    e.preventDefault()
-    const inputSearchWordResult = inputSearchWord
-      ? pokemonData.filter(
-          (value) => value.name.japanese.includes(inputSearchWord) && value
-        )
-      : pokemonData
-    setShowingPokemonList(inputSearchWordResult)
-    console.log(`検索実行：${inputSearchWord}`)
-  }
 
   // Framer 共通トランジション
   const transition = {
@@ -51,22 +29,38 @@ export default function Home() {
     ease: 'easeInOut',
   }
 
-  // フィルタされた配列によって生み出されたReactElements
-  const FilteredList = showingPokemonList.map((pokemon, index) => (
-    <Card
-      key={index}
-      layoutId={pokemon.id - 1}
-      animate={{
-        opacity: 1,
-        scale: 1,
-      }}
-      exit={{ opacity: 0, scale: 0 }}
-      transition={0.3}
-      onClick={() => setShowDetailPokemonTarget(pokemon.id)}
-    >
-      <PokemonList id={pokemon.id} name={pokemon.name} />
-    </Card>
-  ))
+  // 詳細と一覧の切り替えState
+  const [showDetailPokemonTarget, setShowDetailPokemonTarget] = useState(null)
+
+  // 検索窓に入力した値を管理するStateと関数
+  const [inputSearchWord, SetInputSearchWord] = useState('')
+  const handleSearchWord = (e) => {
+    console.log(`検索中...：${e.target.value}`)
+    return SetInputSearchWord(e.target.value)
+  }
+
+  // フィルタされた配列を管理するStateと関数
+  const [showingPokemonList, setShowingPokemonList] = useState(pokemonData)
+  const filterPokemonList = (e) => {
+    e.preventDefault()
+
+    // いったん空にしないとFramerMotionの挙動（計算？）がおかしいので、ここで配列を空にしている
+    setShowingPokemonList([])
+    console.log(`検索実行１：${inputSearchWord}`)
+
+    // 検索した言葉と部分一致する配列を返す。何も入力していなければ初期値を返す。
+    const inputSearchWordResult = inputSearchWord
+      ? pokemonData.filter(
+          (value) => value.name.japanese.includes(inputSearchWord) && value
+        )
+      : pokemonData
+
+    // 少し時間を空けないとFramerMotionの挙動（計算？）がおかしいので、ここで時間を空けている
+    setTimeout(() => {
+      setShowingPokemonList(inputSearchWordResult)
+      console.log(`検索実行２：${inputSearchWord}`)
+    }, 50)
+  }
 
   return (
     <>
@@ -78,7 +72,23 @@ export default function Home() {
         />
         <Container>
           <Wrapper>
-            <ListWrap>{FilteredList}</ListWrap>
+            <ListWrap>
+              {showingPokemonList.map((pokemon, index) => (
+                <Card
+                  key={index}
+                  layoutId={pokemon.id - 1}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={0.3}
+                  onClick={() => setShowDetailPokemonTarget(pokemon.id)}
+                >
+                  <PokemonList id={pokemon.id} name={pokemon.name} />
+                </Card>
+              ))}
+            </ListWrap>
           </Wrapper>
           <AnimatePresence>
             {showingPokemonList.map(
