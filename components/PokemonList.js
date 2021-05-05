@@ -13,7 +13,7 @@ export default function PokemonList({ id, name }) {
             <NameJapanese>{name.japanese}</NameJapanese>
           </NameWrapper>
           <Image
-            src={`/images/${ZeroPadding(id)}.png`}
+            src={`/images/pokemon/${ZeroPadding(id)}.png`}
             alt={name.japanese}
             onLoad={() => setIsLoaded(true)}
             width={400}
@@ -40,7 +40,7 @@ const CardContents = styled.a`
   background: ${({ loaded }) =>
     loaded
       ? '#fff'
-      : '#eee url(/images/pokemon_ball.gif) center / 100px no-repeat'};
+      : '#eee url(/images/common/pokemon_ball.gif) center / 100px no-repeat'};
   &:hover {
     transform: scale(1.05);
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);

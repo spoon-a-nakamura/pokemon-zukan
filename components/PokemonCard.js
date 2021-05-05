@@ -14,7 +14,7 @@ export default function PokemonCard({ id, pokemon }) {
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
       <Image
-        src={`/images/${ZeroPadding(id)}.png`}
+        src={`/images/pokemon/${ZeroPadding(id)}.png`}
         alt={pokemon.name.japanese}
         width={400}
         height={400}
