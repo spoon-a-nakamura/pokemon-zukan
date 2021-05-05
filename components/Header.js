@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
+import TypesSearch from '../components/TypesSearch'
 
 export default function Header({
   onChangeSearchBox,
@@ -28,13 +29,14 @@ export default function Header({
           clickSubmit={clickSubmit}
         ></SearchSubmit>
       </SearchWrapper>
+      <TypesSearch />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   background: #fff;
-  padding: 2%;
+  padding: 2% 2% 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
