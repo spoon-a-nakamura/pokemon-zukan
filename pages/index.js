@@ -1,49 +1,98 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonCard from '../components/PokemonCard'
 import styled from '@emotion/styled'
-import pokemonData from '../data/pokemon_full.json'
-import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
+import pokemonData from '../data/pokemon.json'
+import {
+  motion,
+  AnimateSharedLayout,
+  AnimatePresence,
+  useAnimation,
+} from 'framer-motion'
 import { device } from '../components/MediaQuery'
+import Router from 'next/router'
 
 export default function Home() {
-  const [selectedId, setSelectedId] = useState(null)
+  // リロード
+  const reload = () => Router.reload()
+
+  // 詳細と一覧の切り替えState
+  const [showDetailPokemonTarget, setShowDetailPokemonTarget] = useState(null)
+
+  // 検索窓に入力した値を管理するStateと関数
+  const [inputSearchWord, SetInputSearchWord] = useState(pokemonData)
+  const handleSearchWord = (e) => {
+    console.log(`検索中...：${e.target.value}`)
+    return SetInputSearchWord(e.target.value)
+  }
+
+  // animationコントロール
+  const listAnimationControls = useAnimation()
+
+  // フィルタされた配列を管理するStateと関数
+  const [showingPokemonList, setShowingPokemonList] = useState(inputSearchWord)
+  const filterPokemonList = (e) => {
+    e.preventDefault()
+    const inputSearchWordResult = inputSearchWord
+      ? pokemonData.filter(
+          (value) => value.name.japanese.includes(inputSearchWord) && value
+        )
+      : pokemonData
+    setShowingPokemonList(inputSearchWordResult)
+    console.log(`検索実行：${inputSearchWord}`)
+  }
+
+  // Framer 共通トランジション
   const transition = {
     duration: 0.4,
     delay: 0,
     ease: 'easeInOut',
   }
+
+  // フィルタされた配列によって生み出されたReactElements
+  const FilteredList = showingPokemonList.map((pokemon, index) => (
+    <Card
+      key={index}
+      layoutId={pokemon.id - 1}
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+      exit={{ opacity: 0, scale: 0 }}
+      transition={0.3}
+      onClick={() => setShowDetailPokemonTarget(pokemon.id)}
+    >
+      <PokemonList id={pokemon.id} name={pokemon.name} />
+    </Card>
+  ))
+
   return (
     <>
       <AnimateSharedLayout type='crossfade'>
-        <Header />
+        <Header
+          onChangeSearchBox={handleSearchWord}
+          onClickSearchSubmit={filterPokemonList}
+          onClickLogo={reload}
+        />
         <Container>
           <Wrapper>
-            <ListWrap>
-              {pokemonData.map((pokemon, index) => (
-                <Card
-                  key={index}
-                  layoutId={pokemon.id - 1}
-                  onClick={() => setSelectedId(pokemon.id)}
-                >
-                  <PokemonList id={pokemon.id} name={pokemon.name} />
-                </Card>
-              ))}
-            </ListWrap>
+            <ListWrap>{FilteredList}</ListWrap>
           </Wrapper>
           <AnimatePresence>
-            {pokemonData.map(
+            {showingPokemonList.map(
               (pokemon, index) =>
-                selectedId === index + 1 && (
+                showDetailPokemonTarget === index + 1 && (
                   <Modal key={index}>
                     <ModalContent>
                       <ModalButton
                         onClick={() => {
-                          setSelectedId(selectedId - 1)
+                          setShowDetailPokemonTarget(
+                            showDetailPokemonTarget - 1
+                          )
                         }}
-                        initial={{ opacity: 0, scale: 0 }}
+                        initial={{ opacity: 0.6, scale: 0.6 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0 }}
                         whileHover={{ scale: 1.1 }}
@@ -53,18 +102,24 @@ export default function Home() {
                       </ModalButton>
                       <ModalCard
                         onClick={() => {
-                          setSelectedId(null)
+                          setShowDetailPokemonTarget(null)
                         }}
                         whileHover={{ scale: 1.03 }}
                         transition={transition}
+                        animate={{ opacity: 1, scale: 1 }}
                       >
-                        <PokemonCard id={selectedId} pokemon={pokemon} />
+                        <PokemonCard
+                          id={showDetailPokemonTarget}
+                          pokemon={pokemon}
+                        />
                       </ModalCard>
                       <ModalButton
                         onClick={() => {
-                          setSelectedId(selectedId + 1)
+                          setShowDetailPokemonTarget(
+                            showDetailPokemonTarget + 1
+                          )
                         }}
-                        initial={{ opacity: 0, scale: 0 }}
+                        initial={{ opacity: 0.6, scale: 0.6 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0 }}
                         whileHover={{ scale: 1.1 }}
@@ -87,7 +142,8 @@ const Wrapper = styled.div``
 const ListWrap = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 2%;
   width: 100%;
   list-style: none;
 `

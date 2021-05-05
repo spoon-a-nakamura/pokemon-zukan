@@ -10,7 +10,6 @@ export default function GlobalCss() {
           box-sizing: border-box;
           -moz-osx-font-smoothing: grayscale;
           -webkit-font-smoothing: antialiased;
-          font-smoothing: antialiased;
         }
         html,
         body {
@@ -20,6 +19,13 @@ export default function GlobalCss() {
           font-weight: 800;
           font-style: normal;
           color: #333;
+        }
+        input,
+        select,
+        button {
+          font-family: mr-eaves-modern, tbcgothic-std, sans-serif;
+          font-weight: 800;
+          font-style: normal;
         }
         html {
           visibility: hidden;
