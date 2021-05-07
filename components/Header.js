@@ -1,31 +1,78 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
-import TypesSearch from '../components/TypesSearch'
+import Router from 'next/router'
+import pokemonData from '../data/pokemon.json'
+import TypesSearch from './TypesSearch'
+import { FilterContext } from './FilterReducer'
 
-export default function Header({
-  onChangeSearchBox,
-  onClickSearchSubmit,
-  onClickLogo,
-}) {
+export default function Header() {
+  // リロード関数
+  const reload = () => Router.reload()
+
+  // Providerから渡ってくるContextをstateとdispatchに分割代入
+  const { state, dispatch } = useContext(FilterContext)
+
+  // 検索しているテキストをStateに反映する関数
+  const handleSearchWord = (e) => {
+    console.log(`検索中...：${state.inputSearchWord}`)
+    return e.target.value
+  }
+
+  // フィルタリングされた配列を管理するStateと関数
+  const filterPokemonList = (e) => {
+    // formのsubmitなので、preventDefault
+    e.preventDefault()
+
+    // 検索した言葉と部分一致するポケモンか、入力値が空であれば全数を返す
+    const inputSearchWordResult = state.inputSearchWord
+      ? pokemonData.filter(
+          (value) =>
+            value.name.japanese.includes(state.inputSearchWord) && value
+        )
+      : pokemonData
+    console.log(`検索実行：${state.inputSearchWord}`)
+    return inputSearchWordResult
+  }
+
+  // 検索実行後の１秒間管理（ピカチューを走らせる為）
+  // かつ、Framer の挙動がおかしくなるので、filterPokemonList関数を実行する前に一度ポケモンリストを空にする
   const [clickSubmit, setClickSubmit] = useState(false)
   const onClickSubmit = () => {
     setClickSubmit(true)
     setTimeout(() => {
       setClickSubmit(false)
     }, 1000)
+    return []
   }
   return (
     <Wrapper>
-      <Heading onClick={onClickLogo}>POKEMON ZUKAN</Heading>
-      <SearchWrapper onSubmit={onClickSearchSubmit}>
+      <Heading onClick={reload}>POKEMON ZUKAN</Heading>
+      <SearchWrapper
+        onSubmit={(e) => {
+          dispatch({
+            type: 'setShowingPokemonList',
+            showingPokemonList: filterPokemonList(e),
+          })
+        }}
+      >
         <Search
           type='text'
-          placeholder='search POKEMON'
-          onChange={onChangeSearchBox}
+          placeholder='SEARCH POKEMON'
+          onChange={(e) =>
+            dispatch({
+              type: 'setInputSearchWord',
+              inputSearchWord: handleSearchWord(e),
+            })
+          }
         />
         <SearchSubmit
           type='submit'
-          onClick={onClickSubmit}
+          onClick={() =>
+            dispatch({
+              type: 'setShowingPokemonList',
+              showingPokemonList: onClickSubmit(),
+            })
+          }
           clickSubmit={clickSubmit}
         ></SearchSubmit>
       </SearchWrapper>

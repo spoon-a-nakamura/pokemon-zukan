@@ -1,11 +1,13 @@
 import { useContext } from 'react'
 import styled from '@emotion/styled'
 import pokemonTypes from '../data/types.json'
-import { SelectedTypesContext } from '../pages/_app'
+import { FilterContext } from './FilterReducer'
 
 export default function TypesSearch() {
-  const { state, dispatch } = useContext(SelectedTypesContext)
+  // Providerから渡ってくるContextをstateとdispatchに分割代入
+  const { state, dispatch } = useContext(FilterContext)
 
+  // 選択した属性をBooleanで管理
   const newSelectedState = (index) =>
     state.selectedTypes.map((state, innerIndex) =>
       index === innerIndex ? !state : state

@@ -1,21 +1,18 @@
 import Head from 'next/head'
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { adobeLoader } from '../fonts/adobeLoader'
 import GlobalCss from '../components/GlobalCss'
-import pokemonTypes from '../data/types.json'
-import TypesReducer from '../components/TypesReducer'
-
-//　selectedTypes ステートの初期値を宣言
-const initialTypesState = {
-  selectedTypes: [...Array(pokemonTypes.length)].fill(false),
-}
-
-// selectedTypes コンテキストを作成する
-export const SelectedTypesContext = createContext({})
+import {
+  FilterReducer,
+  initialStates,
+  FilterContext,
+} from '../components/FilterReducer'
 
 export default function App({ Component, pageProps }) {
-  const [state, dispatch] = useReducer(TypesReducer, initialTypesState)
+  // FilterReducer.jsファイルで定義したactionとStateの初期値を引数にしたReducer関数を、stateとdispatchに分割代入
+  const [state, dispatch] = useReducer(FilterReducer, initialStates)
 
+  // AdobeFontの読み込み
   useEffect(() => {
     if (process.browser) adobeLoader(document)
   }, [])
@@ -26,9 +23,9 @@ export default function App({ Component, pageProps }) {
         <link rel='icon' href='favicon.gif' type='image/gif' />
       </Head>
       <GlobalCss />
-      <SelectedTypesContext.Provider value={{ state, dispatch }}>
+      <FilterContext.Provider value={{ state, dispatch }}>
         <Component {...pageProps} />
-      </SelectedTypesContext.Provider>
+      </FilterContext.Provider>
     </>
   )
 }

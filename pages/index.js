@@ -1,70 +1,29 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
-import Router from 'next/router'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonCard from '../components/PokemonCard'
 import { device } from '../components/MediaQuery'
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
-import pokemonData from '../data/pokemon.json'
+import { FilterContext } from '../components/FilterReducer'
+import { transition } from '../components/Utility'
 
 export default function Home() {
-  // リロード関数
-  const reload = () => Router.reload()
-
-  // Framer 共通トランジション
-  const transition = {
-    duration: 0.4,
-    delay: 0,
-    ease: 'easeInOut',
-  }
+  // Providerから渡ってくるContextをstateに代入
+  const { state } = useContext(FilterContext)
 
   // 詳細と一覧の切り替えState
   const [showDetailPokemonTarget, setShowDetailPokemonTarget] = useState(null)
 
-  // 検索窓に入力した値を管理するStateと関数
-  const [inputSearchWord, SetInputSearchWord] = useState('')
-  const handleSearchWord = (e) => {
-    console.log(`検索中...：${e.target.value}`)
-    return SetInputSearchWord(e.target.value)
-  }
-
-  // フィルタされた配列を管理するStateと関数
-  const [showingPokemonList, setShowingPokemonList] = useState(pokemonData)
-  const filterPokemonList = (e) => {
-    e.preventDefault()
-
-    // いったん空にしないとFramerMotionの挙動（計算？）がおかしいので、ここで配列を空にしている
-    setShowingPokemonList([])
-    console.log(`検索実行１：${inputSearchWord}`)
-
-    // 検索した言葉と部分一致する配列を返す。何も入力していなければ初期値を返す。
-    const inputSearchWordResult = inputSearchWord
-      ? pokemonData.filter(
-          (value) => value.name.japanese.includes(inputSearchWord) && value
-        )
-      : pokemonData
-
-    // 少し時間を空けないとFramerMotionの挙動（計算？）がおかしいので、ここで時間を空けている
-    setTimeout(() => {
-      setShowingPokemonList(inputSearchWordResult)
-      console.log(`検索実行２：${inputSearchWord}`)
-    }, 50)
-  }
-
   return (
     <>
       <AnimateSharedLayout type='crossfade'>
-        <Header
-          onChangeSearchBox={handleSearchWord}
-          onClickSearchSubmit={filterPokemonList}
-          onClickLogo={reload}
-        />
+        <Header />
         <Container>
           <Wrapper>
             <ListWrap>
-              {showingPokemonList.map((pokemon, index) => (
+              {state.showingPokemonList.map((pokemon, index) => (
                 <Card
                   key={index}
                   layoutId={pokemon.id - 1}
@@ -82,7 +41,7 @@ export default function Home() {
             </ListWrap>
           </Wrapper>
           <AnimatePresence>
-            {showingPokemonList.map(
+            {state.showingPokemonList.map(
               (pokemon, index) =>
                 showDetailPokemonTarget === index + 1 && (
                   <Modal key={index}>
