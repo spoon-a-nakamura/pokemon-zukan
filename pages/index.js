@@ -6,21 +6,12 @@ import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonCard from '../components/PokemonCard'
 import { device } from '../components/MediaQuery'
-import {
-  motion,
-  AnimateSharedLayout,
-  AnimatePresence,
-  useAnimation,
-} from 'framer-motion'
+import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 import pokemonData from '../data/pokemon.json'
 
 export default function Home() {
   // リロード関数
   const reload = () => Router.reload()
-
-  // animationコントロール
-  // （色々試したけど、結局今使っていない）
-  // const listAnimationControls = useAnimation()
 
   // Framer 共通トランジション
   const transition = {
