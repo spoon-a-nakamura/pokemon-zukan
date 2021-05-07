@@ -1,32 +1,84 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
 import ZeroPadding from './ZeroPadding'
+import { FilterContext } from '../components/FilterReducer'
+import { animationProps } from '../components/Utility'
+import { motion } from 'framer-motion'
+import { device } from '../components/MediaQuery'
 
-export default function PokemonList({ id, name }) {
+export default function PokemonList() {
+  // Providerから渡ってくるContextをstateとdispatchに分割代入
+  const { state, dispatch } = useContext(FilterContext)
+
+  // 画像がロードされたかどうかの管理
   const [isLoaded, setIsLoaded] = useState(false)
   return (
     <>
-      <CardContents loaded={isLoaded}>
-        <CardContentsInner loaded={isLoaded}>
-          <NameWrapper>
-            <NameEnglish>{name.english}</NameEnglish>
-            <NameJapanese>{name.japanese}</NameJapanese>
-          </NameWrapper>
-          <Image
-            src={`/images/pokemon/${ZeroPadding(id)}.png`}
-            alt={name.japanese}
-            onLoad={() => setIsLoaded(true)}
-            width={400}
-            height={400}
-            loading='lazy'
-          />
-        </CardContentsInner>
-      </CardContents>
-      <ListNumber>No.{`${id}`}</ListNumber>
+      <ListWrap>
+        {state.showingPokemonList.map((pokemon) => (
+          <Card
+            key={pokemon.id}
+            layoutId={pokemon.id - 1}
+            animate={animationProps.animate}
+            exit={animationProps.exit}
+            onClick={() =>
+              dispatch({
+                type: 'setShowDetailPokemonTarget',
+                showDetailPokemonTarget: pokemon.id,
+              })
+            }
+          >
+            <CardContents loaded={isLoaded}>
+              <CardContentsInner loaded={isLoaded}>
+                <NameWrapper>
+                  <NameEnglish>{pokemon.name.english}</NameEnglish>
+                  <NameJapanese>{pokemon.name.japanese}</NameJapanese>
+                </NameWrapper>
+                <Image
+                  src={`/images/pokemon/${ZeroPadding(pokemon.id)}.png`}
+                  alt={pokemon.name.japanese}
+                  onLoad={() => setIsLoaded(true)}
+                  width={400}
+                  height={400}
+                  loading='lazy'
+                />
+              </CardContentsInner>
+            </CardContents>
+            <ListNumber>No.{`${pokemon.id}`}</ListNumber>
+          </Card>
+        ))}
+      </ListWrap>
     </>
   )
 }
 
+const ListWrap = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 2%;
+  width: 100%;
+  list-style: none;
+`
+const Card = styled(motion.li)`
+  width: 49%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 2%;
+  @media ${device.mobileL} {
+    width: 32%;
+  }
+  @media ${device.tablet} {
+    width: 23.5%;
+  }
+  @media ${device.laptop} {
+    width: 15%;
+  }
+  @media ${device.desktop} {
+    width: 9%;
+  }
+`
 const CardContents = styled.a`
   display: flex;
   flex-direction: column;
