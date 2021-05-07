@@ -7,7 +7,7 @@ import PokemonCard from '../components/PokemonCard'
 import { device } from '../components/MediaQuery'
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 import { FilterContext } from '../components/FilterReducer'
-import { transition } from '../components/Utility'
+import { animationProps } from '../components/Utility'
 
 export default function Home() {
   // Providerから渡ってくるContextをstateに代入
@@ -23,16 +23,12 @@ export default function Home() {
         <Container>
           <Wrapper>
             <ListWrap>
-              {state.showingPokemonList.map((pokemon, index) => (
+              {state.showingPokemonList.map((pokemon) => (
                 <Card
-                  key={index}
+                  key={pokemon.id}
                   layoutId={pokemon.id - 1}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  transition={0.3}
+                  animate={animationProps.animate}
+                  exit={animationProps.exit}
                   onClick={() => setShowDetailPokemonTarget(pokemon.id)}
                 >
                   <PokemonList id={pokemon.id} name={pokemon.name} />
@@ -42,9 +38,9 @@ export default function Home() {
           </Wrapper>
           <AnimatePresence>
             {state.showingPokemonList.map(
-              (pokemon, index) =>
-                showDetailPokemonTarget === index + 1 && (
-                  <Modal key={index}>
+              (pokemon) =>
+                showDetailPokemonTarget === pokemon.id + 1 && (
+                  <Modal key={pokemon.id}>
                     <ModalContent>
                       <ModalButton
                         onClick={() => {
@@ -52,11 +48,11 @@ export default function Home() {
                             showDetailPokemonTarget - 1
                           )
                         }}
-                        initial={{ opacity: 0.6, scale: 0.6 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0 }}
-                        whileHover={{ scale: 1.1 }}
-                        transition={transition}
+                        initial={animationProps.initial}
+                        animate={animationProps.animate}
+                        exit={animationProps.exit}
+                        whileHover={animationProps.whileHover.mini}
+                        transition={animationProps.transition}
                       >
                         ←
                       </ModalButton>
@@ -64,9 +60,9 @@ export default function Home() {
                         onClick={() => {
                           setShowDetailPokemonTarget(null)
                         }}
-                        whileHover={{ scale: 1.03 }}
-                        transition={transition}
-                        animate={{ opacity: 1, scale: 1 }}
+                        whileHover={animationProps.whileHover.big}
+                        transition={animationProps.transition}
+                        animate={animationProps.animate}
                       >
                         <PokemonCard
                           id={showDetailPokemonTarget}
@@ -79,11 +75,11 @@ export default function Home() {
                             showDetailPokemonTarget + 1
                           )
                         }}
-                        initial={{ opacity: 0.6, scale: 0.6 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0 }}
-                        whileHover={{ scale: 1.1 }}
-                        transition={transition}
+                        initial={animationProps.initial}
+                        animate={animationProps.animate}
+                        exit={animationProps.exit}
+                        whileHover={animationProps.whileHover.mini}
+                        transition={animationProps.transition}
                       >
                         →
                       </ModalButton>
