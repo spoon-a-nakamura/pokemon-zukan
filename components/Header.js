@@ -2,8 +2,8 @@ import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
 import Router from 'next/router'
 import pokemonData from '../data/pokemon.json'
-import TypesSearch from './TypesSearch'
 import { FilterContext } from './FilterReducer'
+import SearchTypes from './SearchTypes'
 
 export default function Header() {
   // リロード関数
@@ -76,7 +76,7 @@ export default function Header() {
           clickSubmit={clickSubmit}
         ></SearchSubmit>
       </SearchWrapper>
-      <TypesSearch />
+      <SearchTypes />
     </Wrapper>
   )
 }

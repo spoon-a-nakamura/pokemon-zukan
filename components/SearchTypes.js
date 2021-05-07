@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import pokemonTypes from '../data/types.json'
 import { FilterContext } from './FilterReducer'
 
-export default function TypesSearch() {
+export default function SearchTypes() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
@@ -26,6 +26,7 @@ export default function TypesSearch() {
                 selectedTypes: newSelectedState(index),
               })
             }
+            selectedTypes={state.selectedTypes[index]}
           >
             {type.japanese}
           </List>
