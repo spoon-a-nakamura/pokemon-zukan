@@ -10,3 +10,8 @@ export const animationProps = {
   exit: { opacity: 0, scale: 0 },
   whileHover: { mini: { scale: 1.1 }, big: { scale: 1.3 } },
 }
+
+// zeroPadding
+export function zeroPadding(id) {
+  return `${id}`.padStart(3, '0')
+}

@@ -1,8 +1,7 @@
 import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
-import ZeroPadding from './ZeroPadding'
 import { FilterContext } from '../components/FilterReducer'
-import { animationProps } from '../components/Utility'
+import { animationProps, zeroPadding } from '../components/Utility'
 import { motion } from 'framer-motion'
 import { device } from '../components/MediaQuery'
 
@@ -35,7 +34,7 @@ export default function PokemonList() {
                   <NameJapanese>{pokemon.name.japanese}</NameJapanese>
                 </NameWrapper>
                 <Image
-                  src={`/images/pokemon/${ZeroPadding(pokemon.id)}.png`}
+                  src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
                   alt={pokemon.name.japanese}
                   onLoad={() => setIsLoaded(true)}
                   width={400}
