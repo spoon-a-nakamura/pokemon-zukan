@@ -1,9 +1,8 @@
-import styled from '@emotion/styled'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import PokemonList from '../components/PokemonList'
 import PokemonModal from '../components/PokemonModal'
-import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
+import { AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 
 export default function Home() {
   return (
@@ -11,9 +10,7 @@ export default function Home() {
       <AnimateSharedLayout type='crossfade'>
         <Header />
         <Container>
-          <Wrapper>
-            <PokemonList />
-          </Wrapper>
+          <PokemonList />
         </Container>
         <AnimatePresence>
           <PokemonModal />
@@ -22,5 +19,3 @@ export default function Home() {
     </>
   )
 }
-
-const Wrapper = styled.div``

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
-import ZeroPadding from './ZeroPadding'
+import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
 
 export default function PokemonCard({ id, pokemon }) {
@@ -14,7 +14,7 @@ export default function PokemonCard({ id, pokemon }) {
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
       <Image
-        src={`/images/pokemon/${ZeroPadding(id)}.png`}
+        src={`/images/pokemon/${zeroPadding(id)}.png`}
         alt={pokemon.name.japanese}
         width={400}
         height={400}
