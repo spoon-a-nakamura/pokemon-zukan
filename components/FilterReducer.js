@@ -10,6 +10,7 @@ export const initialStates = {
   inputSearchWord: '',
   showingPokemonList: pokemonData,
   selectedTypes: [...Array(pokemonTypes.length)].fill(false),
+  showDetailPokemonTarget: null,
 }
 
 // Reducerを使う時に渡す関数
@@ -21,6 +22,11 @@ export function FilterReducer(state, action) {
       return { ...state, showingPokemonList: action.showingPokemonList }
     case 'setSelectedTypes':
       return { ...state, selectedTypes: action.selectedTypes }
+    case 'setShowDetailPokemonTarget':
+      return {
+        ...state,
+        showDetailPokemonTarget: action.showDetailPokemonTarget,
+      }
     default:
       return state
   }
