@@ -1,22 +1,16 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import styled from '@emotion/styled'
 import pokemonTypes from '../data/types.json'
+import { SelectedTypesContext } from '../pages/_app'
 
 export default function TypesSearch() {
-  // 選択しているタイプのState
-  const [selectedTypes, setSelectedTypes] = useState(
-    [...Array(pokemonTypes.length)].fill(false)
-  )
+  const { state, dispatch } = useContext(SelectedTypesContext)
 
-  // タイプをクリックした時のState管理関数
-  const handleSelectedTypes = (index) => {
-    setSelectedTypes((currentState) => {
-      const newSelectedState = currentState.map((state, innerIndex) =>
-        index === innerIndex ? !state : state
-      )
-      return newSelectedState
-    })
-  }
+  const newSelectedState = (index) =>
+    state.selectedTypes.map((state, innerIndex) =>
+      index === innerIndex ? !state : state
+    )
+  console.log(state.selectedTypes)
 
   return (
     <Container>
@@ -24,8 +18,12 @@ export default function TypesSearch() {
         {pokemonTypes.map((type, index) => (
           <List
             key={index}
-            onClick={() => handleSelectedTypes(index)}
-            selectedTypes={selectedTypes[index]}
+            onClick={() =>
+              dispatch({
+                type: 'setSelectedTypes',
+                selectedTypes: newSelectedState(index),
+              })
+            }
           >
             {type.japanese}
           </List>

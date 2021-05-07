@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styled from '@emotion/styled'
 import Router from 'next/router'
 import Header from '../components/Header'
@@ -13,14 +13,14 @@ import {
   useAnimation,
 } from 'framer-motion'
 import pokemonData from '../data/pokemon.json'
-import pokemonTypes from '../data/types.json'
 
 export default function Home() {
-  // リロード
+  // リロード関数
   const reload = () => Router.reload()
 
   // animationコントロール
-  const listAnimationControls = useAnimation()
+  // （色々試したけど、結局今使っていない）
+  // const listAnimationControls = useAnimation()
 
   // Framer 共通トランジション
   const transition = {
