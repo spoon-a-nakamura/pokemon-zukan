@@ -9,59 +9,65 @@ export default function PokemonModal() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
-  return state.showingPokemonList.map(
-    (pokemon) =>
-      state.showDetailPokemonTarget === pokemon.id + 1 && (
-        <Modal key={pokemon.id}>
-          <ModalContent>
-            <ModalButton
-              onClick={() => {
-                dispatch({
-                  type: 'setShowDetailPokemonTarget',
-                  showDetailPokemonTarget: state.showDetailPokemonTarget - 1,
-                })
-              }}
-              initial={animationProps.initial}
-              animate={animationProps.animate}
-              exit={animationProps.exit}
-              whileHover={animationProps.whileHover.mini}
-              transition={animationProps.transition}
-            >
-              ←
-            </ModalButton>
-            <ModalCard
-              onClick={() => {
-                dispatch({
-                  type: 'setShowDetailPokemonTarget',
-                  showDetailPokemonTarget: null,
-                })
-              }}
-              transition={animationProps.transition}
-              animate={animationProps.animate}
-            >
-              <PokemonCard
-                id={state.showDetailPokemonTarget}
-                pokemon={pokemon}
-              />
-            </ModalCard>
-            <ModalButton
-              onClick={() => {
-                dispatch({
-                  type: 'setShowDetailPokemonTarget',
-                  showDetailPokemonTarget: state.showDetailPokemonTarget + 1,
-                })
-              }}
-              initial={animationProps.initial}
-              animate={animationProps.animate}
-              exit={animationProps.exit}
-              whileHover={animationProps.whileHover.mini}
-              transition={animationProps.transition}
-            >
-              →
-            </ModalButton>
-          </ModalContent>
-        </Modal>
-      )
+  return (
+    <>
+      {state.showingPokemonList.map(
+        (pokemon) =>
+          state.showDetailPokemonTarget === pokemon.id + 1 && (
+            <Modal key={pokemon.id}>
+              <ModalContent>
+                <ModalButton
+                  onClick={() => {
+                    dispatch({
+                      type: 'setShowDetailPokemonTarget',
+                      showDetailPokemonTarget:
+                        state.showDetailPokemonTarget - 1,
+                    })
+                  }}
+                  initial={animationProps.initial}
+                  animate={animationProps.animate}
+                  exit={animationProps.exit}
+                  whileHover={animationProps.whileHover.mini}
+                  transition={animationProps.transition}
+                >
+                  ←
+                </ModalButton>
+                <ModalCard
+                  onClick={() => {
+                    dispatch({
+                      type: 'setShowDetailPokemonTarget',
+                      showDetailPokemonTarget: null,
+                    })
+                  }}
+                  transition={animationProps.transition}
+                  animate={animationProps.animate}
+                >
+                  <PokemonCard
+                    id={state.showDetailPokemonTarget}
+                    pokemon={pokemon}
+                  />
+                </ModalCard>
+                <ModalButton
+                  onClick={() => {
+                    dispatch({
+                      type: 'setShowDetailPokemonTarget',
+                      showDetailPokemonTarget:
+                        state.showDetailPokemonTarget + 1,
+                    })
+                  }}
+                  initial={animationProps.initial}
+                  animate={animationProps.animate}
+                  exit={animationProps.exit}
+                  whileHover={animationProps.whileHover.mini}
+                  transition={animationProps.transition}
+                >
+                  →
+                </ModalButton>
+              </ModalContent>
+            </Modal>
+          )
+      )}
+    </>
   )
 }
 

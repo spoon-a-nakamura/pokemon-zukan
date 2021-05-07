@@ -4,9 +4,6 @@ import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
 
 export default function PokemonCard({ id, pokemon }) {
-  const types = pokemon.type.map((type, index) => {
-    return <TypeList key={index}>{type}</TypeList>
-  })
   return (
     <Card layoutId={id - 1}>
       <NameWrapper>
@@ -19,7 +16,11 @@ export default function PokemonCard({ id, pokemon }) {
         width={400}
         height={400}
       />
-      <TypeListWrap>{types}</TypeListWrap>
+      <TypeListWrap>
+        {pokemon.type.map((type, index) => {
+          return <TypeList key={index}>{type}</TypeList>
+        })}
+      </TypeListWrap>
       <StatusListWrap>
         <StatusList>
           <StatusListCaption>HP：{pokemon.base.HP}</StatusListCaption>
