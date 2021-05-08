@@ -1,16 +1,15 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import styled from '@emotion/styled'
 import { FilterContext } from '../components/FilterReducer'
 import { animationProps, zeroPadding } from '../components/Utility'
 import { motion } from 'framer-motion'
 import { device } from '../components/MediaQuery'
+import LazyImage from '../components/LazyImage'
 
 export default function PokemonList() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
-  // 画像がロードされたかどうかの管理
-  const [isLoaded, setIsLoaded] = useState(false)
   return (
     <>
       <ListWrap>
@@ -27,19 +26,18 @@ export default function PokemonList() {
               })
             }
           >
-            <CardContents loaded={isLoaded}>
-              <CardContentsInner loaded={isLoaded}>
+            <CardContents isLoaded={true}>
+              <CardContentsInner isLoaded={true}>
                 <NameWrapper>
                   <NameEnglish>{pokemon.name.english}</NameEnglish>
                   <NameJapanese>{pokemon.name.japanese}</NameJapanese>
                 </NameWrapper>
-                <Image
+                <LazyImage
+                  key={index}
                   src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
                   alt={pokemon.name.japanese}
-                  onLoad={() => setIsLoaded(true)}
                   width={400}
                   height={400}
-                  loading='lazy'
                 />
               </CardContentsInner>
             </CardContents>
@@ -86,24 +84,15 @@ const CardContents = styled.a`
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   cursor: pointer;
+  background: #fff;
   transition: all ease-out 0.5s;
-  will-change: background, transform, box-shadow;
-  background: ${({ loaded }) =>
-    loaded
-      ? '#fff'
-      : '#eee url(/images/common/pokemon_ball.gif) center / 100px no-repeat'};
+  will-change: transform, box-shadow;
   &:hover {
     transform: scale(1.05);
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
   }
 `
-
-const CardContentsInner = styled.div`
-  transition: all ease-out 0.5s;
-  will-change: opacity, transform;
-  opacity: ${({ loaded }) => (loaded ? 1 : 0)};
-  transform: ${({ loaded }) => (loaded ? 'scale(1)' : 'scale(0.5)')};
-`
+const CardContentsInner = styled.div``
 const NameWrapper = styled.div``
 const NameJapanese = styled.div`
   text-align: center;
@@ -117,12 +106,6 @@ const NameEnglish = styled.div`
   text-transform: uppercase;
   text-align: center;
 `
-const Image = styled.img`
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-`
-
 const ListNumber = styled.p`
   font-size: 14px;
   text-align: center;
