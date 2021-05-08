@@ -9,7 +9,7 @@ export const FilterContext = createContext({})
 export const initialStates = {
   inputSearchWord: null,
   showingPokemonList: pokemonData,
-  selectedTypes: [...Array(pokemonTypes.length)].fill(false),
+  selectedTypes: [true, ...[...Array(pokemonTypes.length - 1)].fill(false)],
   showDetailPokemonTarget: null,
 }
 

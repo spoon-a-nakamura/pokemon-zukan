@@ -11,7 +11,7 @@ export default function SearchTypes() {
   // 表示用のState：選択した属性をBooleanで管理
   const newSelectedState = (index) => {
     return state.selectedTypes.map((state, innerIndex) =>
-      index === innerIndex ? !state : false
+      index === innerIndex ? true : false
     )
   }
 
@@ -25,9 +25,13 @@ export default function SearchTypes() {
     const selectedTypeEnglishName = selectedTypeName[0].english
 
     // 現在の表示されているリストからさらに指定した属性で絞り込み
-    return pokemonData.filter(
-      (value) => value.type.includes(selectedTypeEnglishName) && value
-    )
+    if (e.target.textContent === 'すべて') {
+      return pokemonData
+    } else {
+      return pokemonData.filter(
+        (value) => value.type.includes(selectedTypeEnglishName) && value
+      )
+    }
   }
 
   // リセット用のState
