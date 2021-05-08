@@ -1,18 +1,39 @@
 import { useContext } from 'react'
 import styled from '@emotion/styled'
 import pokemonTypes from '../data/types.json'
+import pokemonData from '../data/pokemon.json'
 import { FilterContext } from './FilterReducer'
 
 export default function SearchTypes() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
-  // 選択した属性をBooleanで管理
-  const newSelectedState = (index) =>
-    state.selectedTypes.map((state, innerIndex) =>
-      index === innerIndex ? !state : state
+  // 表示用のState：選択した属性をBooleanで管理
+  const newSelectedState = (index) => {
+    return state.selectedTypes.map((state, innerIndex) =>
+      index === innerIndex ? !state : false
     )
-  console.log(state.selectedTypes)
+  }
+
+  // フィルタ用のState：選択した属性の配列を返す
+  const filterSelectedType = (e) => {
+    // 選択した属性のオブジェクトを取得
+    const selectedTypeName = pokemonTypes.filter((type) => {
+      return type.japanese === e.target.textContent && type
+    })
+    // 上記で取得したオブジェクトの英語名を取得
+    const selectedTypeEnglishName = selectedTypeName[0].english
+
+    // 現在の表示されているリストからさらに指定した属性で絞り込み
+    return pokemonData.filter(
+      (value) => value.type.includes(selectedTypeEnglishName) && value
+    )
+  }
+
+  // リセット用のState
+  const resetSearchField = () => {
+    return null
+  }
 
   return (
     <Container>
@@ -20,12 +41,20 @@ export default function SearchTypes() {
         {pokemonTypes.map((type, index) => (
           <List
             key={index}
-            onClick={() =>
+            onClick={(e) => {
               dispatch({
                 type: 'setSelectedTypes',
                 selectedTypes: newSelectedState(index),
               })
-            }
+              dispatch({
+                type: 'setShowingPokemonList',
+                showingPokemonList: filterSelectedType(e),
+              })
+              dispatch({
+                type: 'setInputSearchWord',
+                inputSearchWord: resetSearchField(),
+              })
+            }}
             selectedTypes={state.selectedTypes[index]}
           >
             {type.japanese}

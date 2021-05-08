@@ -7,7 +7,7 @@ export const FilterContext = createContext({})
 
 // Reducerを使う時に渡すStateの初期値
 export const initialStates = {
-  inputSearchWord: '',
+  inputSearchWord: null,
   showingPokemonList: pokemonData,
   selectedTypes: [...Array(pokemonTypes.length)].fill(false),
   showDetailPokemonTarget: null,
