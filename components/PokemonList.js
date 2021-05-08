@@ -26,8 +26,8 @@ export default function PokemonList() {
               })
             }
           >
-            <CardContents isLoaded={true}>
-              <CardContentsInner isLoaded={true}>
+            <CardContents>
+              <CardContentsInner>
                 <NameWrapper>
                   <NameEnglish>{pokemon.name.english}</NameEnglish>
                   <NameJapanese>{pokemon.name.japanese}</NameJapanese>

@@ -4,6 +4,7 @@ import PokemonCard from '../components/PokemonCard'
 import { motion } from 'framer-motion'
 import { FilterContext } from '../components/FilterReducer'
 import { animationProps } from '../components/Utility'
+import { device } from '../components/MediaQuery'
 
 export default function PokemonModal() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
@@ -28,6 +29,7 @@ export default function PokemonModal() {
                   exit={animationProps.exit}
                   whileHover={animationProps.whileHover.mini}
                   transition={animationProps.transition}
+                  prev={true}
                 >
                   ←
                 </ModalButton>
@@ -55,6 +57,7 @@ export default function PokemonModal() {
                   exit={animationProps.exit}
                   whileHover={animationProps.whileHover.mini}
                   transition={animationProps.transition}
+                  next={true}
                 >
                   →
                 </ModalButton>
@@ -96,6 +99,19 @@ const ModalCard = styled(motion.div)`
   pointer-events: initial;
   cursor: pointer;
   max-width: 90%;
+  margin: auto;
+  @media ${device.mobileM} {
+    margin: auto;
+  }
+  @media screen and (min-width: 720px) and (max-width: 768px) {
+    margin: 0 20vw;
+  }
+  @media screen and (min-width: 567px) and (max-width: 720px) {
+    margin: 0 10vw;
+  }
+  @media ${device.tablet} {
+    margin: auto;
+  }
 `
 const ModalButton = styled(motion.div)`
   background: #000;
@@ -113,5 +129,9 @@ const ModalButton = styled(motion.div)`
   pointer-events: initial;
   &:hover {
     transform: scale(1.1);
+  }
+  order: ${({ prev }) => (prev ? 1 : 2)};
+  @media ${device.tablet} {
+    order: 0;
   }
 `
