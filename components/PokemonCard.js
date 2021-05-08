@@ -5,13 +5,13 @@ import ProgressBar from './ProgressBar'
 
 export default function PokemonCard({ id, pokemon }) {
   return (
-    <Card layoutId={id - 1}>
+    <Card layoutId={id}>
       <NameWrapper>
         <NameEnglish>{pokemon.name.english}</NameEnglish>
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
       <Image
-        src={`/images/pokemon/${zeroPadding(id)}.png`}
+        src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
         alt={pokemon.name.japanese}
         width={400}
         height={400}

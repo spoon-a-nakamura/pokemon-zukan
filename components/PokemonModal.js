@@ -12,16 +12,15 @@ export default function PokemonModal() {
   return (
     <>
       {state.showingPokemonList.map(
-        (pokemon) =>
-          state.showDetailPokemonTarget === pokemon.id + 1 && (
-            <Modal key={pokemon.id}>
+        (pokemon, index) =>
+          state.showDetailPokemonTarget === index + 1 && (
+            <Modal key={index}>
               <ModalContent>
                 <ModalButton
                   onClick={() => {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget:
-                        state.showDetailPokemonTarget - 1,
+                      showDetailPokemonTarget: index,
                     })
                   }}
                   initial={animationProps.initial}
@@ -42,17 +41,13 @@ export default function PokemonModal() {
                   transition={animationProps.transition}
                   animate={animationProps.animate}
                 >
-                  <PokemonCard
-                    id={state.showDetailPokemonTarget}
-                    pokemon={pokemon}
-                  />
+                  <PokemonCard id={index + 1} pokemon={pokemon} />
                 </ModalCard>
                 <ModalButton
                   onClick={() => {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget:
-                        state.showDetailPokemonTarget + 1,
+                      showDetailPokemonTarget: index + 2,
                     })
                   }}
                   initial={animationProps.initial}

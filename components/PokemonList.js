@@ -14,16 +14,16 @@ export default function PokemonList() {
   return (
     <>
       <ListWrap>
-        {state.showingPokemonList.map((pokemon) => (
+        {state.showingPokemonList.map((pokemon, index) => (
           <Card
-            key={pokemon.id}
-            layoutId={pokemon.id - 1}
+            key={index}
+            layoutId={index + 1}
             animate={animationProps.animate}
             exit={animationProps.exit}
             onClick={() =>
               dispatch({
                 type: 'setShowDetailPokemonTarget',
-                showDetailPokemonTarget: pokemon.id,
+                showDetailPokemonTarget: index + 1,
               })
             }
           >
