@@ -1,5 +1,6 @@
 import { createContext } from 'react'
 import pokemonData from '../data/pokemon.json'
+// import pokemonData from '../data/pokemon_full.json'
 import pokemonTypes from '../data/types.json'
 
 // 全体にわたすContext
