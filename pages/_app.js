@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>POKEMON図鑑</title>
-        <link rel='icon' href='favicon.gif' type='image/gif' />
+        <link rel='icon' href='/images/common/favicon.gif' type='image/gif' />
       </Head>
       <GlobalCss />
       <FilterContext.Provider value={{ state, dispatch }}>
