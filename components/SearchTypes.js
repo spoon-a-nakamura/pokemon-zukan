@@ -7,8 +7,6 @@ import pokemonData from '../data/pokemon_full.json'
 
 export default function SearchTypes() {
   console.log('Render SearchTypes')
-
-  // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
   // 表示用のState：選択した属性をBooleanで管理

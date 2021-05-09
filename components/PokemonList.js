@@ -7,10 +7,8 @@ import { device } from '../components/MediaQuery'
 import LazyImage from '../components/LazyImage'
 
 export default function PokemonList() {
-  // Providerから渡ってくるContextをstateとdispatchに分割代入
   console.log('Render PokemonList')
   const { state, dispatch } = useContext(FilterContext)
-
   return (
     <>
       <ListWrap>

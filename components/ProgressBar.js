@@ -8,7 +8,6 @@ export default function ProgressBar({ value }) {
     delay: 0.2,
     ease: 'easeInOut',
   }
-
   return (
     <Bar>
       <BarFilling

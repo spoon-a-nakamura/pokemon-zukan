@@ -8,10 +8,7 @@ import { device } from '../components/MediaQuery'
 
 export default function PokemonModal() {
   console.log('Render PokemonModal')
-
-  // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
-
   return (
     <>
       {state.showingPokemonList.map(
