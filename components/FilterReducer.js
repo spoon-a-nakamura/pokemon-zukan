@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 import pokemonTypes from '../data/types.json'
-import pokemonData from '../data/pokemon.json'
-// import pokemonData from '../data/pokemon_full.json'
+// import pokemonData from '../data/pokemon.json'
+import pokemonData from '../data/pokemon_full.json'
 
 // 全体にわたすContext
 export const FilterContext = createContext({})
