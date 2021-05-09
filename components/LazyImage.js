@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
+import { device } from '../components/MediaQuery'
 
 export default function LazyImage({ src, alt, width, height, modal }) {
   console.log('Render LazyImage')
@@ -66,11 +67,17 @@ export default function LazyImage({ src, alt, width, height, modal }) {
 
 const Image = styled.img`
   margin: auto;
-  max-width: ${({ modal }) => (modal ? '70%' : '100%')};
   height: auto;
   object-fit: contain;
-  transition: all ease-in-out 0.5s;
   transform: scale(0.7);
+  transition: all ease-in-out 0.5s;
+  max-width: ${({ modal }) => (modal ? '70%' : '100%')};
+  @media ${device.underMobileM} {
+    max-width: ${({ modal }) => (modal ? '65%' : '100%')};
+  }
+  @media ${device.underMobileS} {
+    max-width: ${({ modal }) => (modal ? '60%' : '100%')};
+  }
   &.is-loaded:not(.has-error) {
     animation: loaded 0.5s ease-in-out forwards;
   }

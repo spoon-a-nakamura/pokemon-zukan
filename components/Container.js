@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { device } from '../components/MediaQuery'
 
 export default function Container({ children }) {
   console.log('Render Container')
@@ -15,4 +16,7 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   margin-top: 110px;
+  @media ${device.underMobileL} {
+    margin-top: 60px;
+  }
 `

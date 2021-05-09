@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
+import pokemonTypes from '../data/types.json'
 import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
 import LazyImage from '../components/LazyImage'
-import pokemonTypes from '../data/types.json'
+import { device } from '../components/MediaQuery'
 
 const LazyImageMemo = React.memo((props) => {
   return (
@@ -91,6 +92,9 @@ const NameWrapper = styled.div`
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
+  @media ${device.underMobileL} {
+    font-size: 3.5vw;
+  }
 `
 const NameEnglish = styled.div`
   font-family: mr-eaves-modern, sans-serif;
@@ -99,6 +103,9 @@ const NameEnglish = styled.div`
   font-size: 5vw;
   text-transform: uppercase;
   text-align: center;
+  @media ${device.underMobileL} {
+    font-size: 9vw;
+  }
 `
 const TypeListWrap = styled.ul`
   display: flex;
@@ -122,8 +129,10 @@ const TypeList = styled.li`
       margin-left: 20px;
     }
   }
+  @media ${device.underMobileL} {
+    font-size: 12px;
+  }
 `
-
 const StatusListWrap = styled.ul`
   display: flex;
   flex-direction: column;
@@ -134,6 +143,9 @@ const StatusList = styled.li`
   display: flex;
   width: 100%;
   margin: 5px 0;
+  @media ${device.underMobileL} {
+    font-size: 4vw;
+  }
 `
 const StatusListCaption = styled.p`
   font-family: tbcgothic-std, sans-serif;

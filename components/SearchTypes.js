@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import styled from '@emotion/styled'
 import { FilterContext } from './FilterReducer'
+import { device } from '../components/MediaQuery'
 import pokemonTypes from '../data/types.json'
 import pokemonData from '../data/pokemon.json'
 // import pokemonData from '../data/pokemon_full.json'
@@ -89,7 +90,7 @@ const ListWrapper = styled.ul`
 `
 const List = styled.li`
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
@@ -101,5 +102,8 @@ const List = styled.li`
     padding-left: 30px;
     background: ${({ selectedTypes }) =>
       selectedTypes ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.02)'};
+  }
+  @media ${device.underMobileL} {
+    font-size: 12px;
   }
 `

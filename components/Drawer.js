@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { FilterContext } from '../components/FilterReducer'
 import styled from '@emotion/styled'
 import SearchTypes from './SearchTypes'
+import { device } from '../components/MediaQuery'
 
 export default function Drawer() {
   console.log('Render Drawer')
@@ -27,7 +28,7 @@ export default function Drawer() {
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
-  right: ${({ isDrawerOpen }) => (isDrawerOpen ? '0' : '-50%')};
+  right: ${({ isDrawerOpen }) => (isDrawerOpen ? '0' : '-70%')};
   width: 200px;
   height: 100vh;
   overflow: hidden;
@@ -46,9 +47,16 @@ const Close = styled.div`
   width: 100%;
   font-size: 25px;
   font-weight: bold;
-  padding: 25px 20px 23px;
+  padding: 27px 20px 23px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
   transition: all ease-in-out 0.3s;
   background: url(/images/common/close.svg) center right 10px / 20px no-repeat;
+  transition: all ease 0.3s;
+  &:hover {
+    padding: 42px 20px 38px;
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+  @media ${device.underMobileL} {
+    font-size: 20px;
+  }
 `

@@ -77,23 +77,27 @@ const Card = styled(motion.li)`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 5%;
-  @media ${device.mobileL} {
+  @media ${device.overMobileL} {
     width: 32%;
   }
-  @media ${device.tablet} {
+  @media ${device.overTablet} {
     width: 23.5%;
   }
-  @media ${device.laptop} {
+  @media ${device.overLaptop} {
     width: 15%;
   }
-  @media ${device.desktop} {
+  @media ${device.overDesktop} {
     width: 9%;
   }
 `
 const CardContents = styled.a`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   border-radius: 20px;
   box-sizing: border-box;
@@ -101,22 +105,43 @@ const CardContents = styled.a`
   transition: all ease-in-out 0.5s;
   will-change: transform, box-shadow;
 `
-const CardContentsInner = styled.div``
+const CardContentsInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 const NameWrapper = styled.div`
   margin-bottom: 15px;
+  margin-top: auto;
+  @media ${device.underMobileL} {
+    margin-bottom: 5px;
+  }
 `
 const NameEnglish = styled.div`
   font-family: mr-eaves-modern, sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 1.6vw;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 3px;
+  font-size: 22px;
+  @media ${device.overLaptop} {
+    font-size: 1.6vw;
+  }
+  @media ${device.underMobileL} {
+    font-size: 5vw;
+  }
 `
 const NameJapanese = styled.div`
   text-align: center;
-  font-size: 1vw;
+  font-size: 12px;
+  @media ${device.overLaptopL} {
+    font-size: 0.8vw;
+  }
+  @media ${device.underMobileL} {
+    font-size: 3vw;
+  }
 `
 const ImageWrapper = styled.div`
   position: relative;
@@ -148,4 +173,8 @@ const ListNumber = styled.p`
   font-size: 13px;
   text-align: center;
   margin-top: -10px;
+  margin-bottom: auto;
+  @media ${device.underMobileL} {
+    margin-top: -15px;
+  }
 `

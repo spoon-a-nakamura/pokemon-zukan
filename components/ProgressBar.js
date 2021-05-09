@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
+import { device } from '../components/MediaQuery'
 
 export default function ProgressBar({ value }) {
   console.log('Render ProgressBar')
@@ -26,6 +27,9 @@ const Bar = styled.div`
   height: 20px;
   width: 60%;
   margin-left: auto;
+  @media ${device.underMobileL} {
+    width: 50%;
+  }
 `
 const BarFilling = styled(motion.div)`
   position: absolute;

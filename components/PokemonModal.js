@@ -16,6 +16,14 @@ export default function PokemonModal() {
           state.showDetailPokemonTarget === index + 1 && (
             <Modal key={index} transition={animationProps.transition}>
               <ModalContent>
+                <Close
+                  onClick={() => {
+                    dispatch({
+                      type: 'setShowDetailPokemonTarget',
+                      showDetailPokemonTarget: null,
+                    })
+                  }}
+                />
                 <Name
                   initial={{ opacity: 0, y: '-50%' }}
                   animate={{ opacity: 0.5, scale: [1.5, 0.6], y: '-50%' }}
@@ -88,7 +96,7 @@ const Modal = styled(motion.div)`
   width: 100%;
   height: 100vh;
   pointer-events: none;
-  z-index: 20;
+  z-index: 100;
   transition: all ease 0.5s;
   & + div {
     background: rgba(0, 0, 0, 0);
@@ -102,13 +110,16 @@ const ModalContent = styled.div`
   width: 100%;
   height: 100%;
   pointer-events: none;
+  @media ${device.underMobileL} {
+    padding: 20px 0;
+  }
 `
 const ModalCard = styled(motion.div)`
   pointer-events: initial;
   cursor: pointer;
   max-width: 90%;
   margin: auto;
-  @media ${device.mobileM} {
+  @media ${device.overMobileM} {
     margin: auto;
   }
   @media screen and (min-width: 720px) and (max-width: 768px) {
@@ -117,7 +128,7 @@ const ModalCard = styled(motion.div)`
   @media screen and (min-width: 567px) and (max-width: 720px) {
     margin: 0 10vw;
   }
-  @media ${device.tablet} {
+  @media ${device.overTablet} {
     margin: auto;
   }
 `
@@ -139,16 +150,48 @@ const ModalButton = styled(motion.div)`
     transform: scale(1.1);
   }
   order: ${({ prev }) => (prev ? 1 : 2)};
-  @media ${device.tablet} {
+  @media ${device.overTablet} {
     order: 0;
+  }
+  @media ${device.underMobileL} {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    padding-top: 3px;
+    margin-top: -20px;
+    margin-bottom: auto;
   }
 `
 const Name = styled(motion.div)`
   position: fixed;
   top: 50%;
   font-size: 500px;
+  font-weight: bold;
   color: #fff;
   z-index: -1;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  @media ${device.underMobileL} {
+    font-size: 250px;
+  }
+`
+const Close = styled.div`
+  position: absolute;
+  cursor: pointer;
+  top: 50px;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  pointer-events: initial;
+  transition: all ease 0.5s;
+  background: url(/images/common/close.svg) center / contain no-repeat;
+  &:hover {
+    transform: scale(1.1) rotate(180deg);
+  }
+  @media ${device.underMobileL} {
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+  }
 `

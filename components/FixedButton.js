@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { FilterContext } from '../components/FilterReducer'
 import styled from '@emotion/styled'
+import { device } from '../components/MediaQuery'
 
 export default function FixedButton() {
   console.log('Render FixedButton')
@@ -24,6 +25,9 @@ export default function FixedButton() {
 const Button = styled.div`
   cursor: pointer;
   transform: scale(0.8);
+  @media ${device.underMobileL} {
+    transform: scale(0.6);
+  }
 `
 const PokeBall = styled.div`
   position: relative;

@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
+import { device } from '../components/MediaQuery'
 import { FilterContext } from './FilterReducer'
 import pokemonData from '../data/pokemon.json'
 // import pokemonData from '../data/pokemon_full.json'
@@ -52,7 +53,7 @@ export default function SearchWord() {
     >
       <Search
         type='text'
-        placeholder='SEARCH POKEMON'
+        placeholder='SEARCH YOUR FAVORITE POKEMON'
         onChange={(e) =>
           dispatch({
             type: 'setInputSearchWord',
@@ -80,6 +81,9 @@ const SearchWrapper = styled.form`
   align-items: center;
   flex: 1;
   margin-left: auto;
+  @media ${device.underTablet} {
+    display: none;
+  }
 `
 const Search = styled.input`
   background: rgba(0, 0, 0, 0.05);
@@ -90,6 +94,9 @@ const Search = styled.input`
   width: calc(90% - 110px);
   text-transform: uppercase;
   outline: none;
+  &::placeholder {
+    color: #ccc;
+  }
 `
 const SearchSubmit = styled.button`
   background: rgba(0, 0, 0, 0.05) url(/images/common/pika.gif) 0 center /

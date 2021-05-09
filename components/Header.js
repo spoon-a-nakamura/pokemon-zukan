@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import Router from 'next/router'
 import SearchWord from './SearchWord'
 import FixedButton from '../components/FixedButton'
+import { device } from '../components/MediaQuery'
 
 export default function Header() {
   console.log('Render Header')
@@ -31,4 +32,7 @@ const Wrapper = styled.div`
 const Heading = styled.h1`
   font-size: 40px;
   cursor: pointer;
+  @media ${device.underMobileL} {
+    font-size: 30px;
+  }
 `
