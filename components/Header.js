@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import Router from 'next/router'
 import SearchWord from './SearchWord'
+import FixedButton from '../components/FixedButton'
 
 export default function Header() {
   console.log('Render Header')
@@ -9,6 +10,7 @@ export default function Header() {
     <Wrapper>
       <Heading onClick={reload}>POKEMON ZUKAN</Heading>
       <SearchWord />
+      <FixedButton />
     </Wrapper>
   )
 }
@@ -16,7 +18,7 @@ export default function Header() {
 const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);
-  padding: 2% 2%;
+  padding: 1.5% 4%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -27,6 +29,6 @@ const Wrapper = styled.div`
   z-index: 10;
 `
 const Heading = styled.h1`
-  font-size: 3vw;
+  font-size: 40px;
   cursor: pointer;
 `

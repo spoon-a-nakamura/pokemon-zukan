@@ -74,35 +74,20 @@ export default function SearchWord() {
   )
 }
 
-const Wrapper = styled.div`
-  background: #fff;
-  padding: 2% 2% 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-`
-const Heading = styled.h1`
-  font-size: 3vw;
-  cursor: pointer;
-`
 const SearchWrapper = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vw;
+  flex: 1;
+  margin-left: auto;
 `
 const Search = styled.input`
   background: #f5f5f5;
   border-radius: 120px 0 0 120px;
-  padding: 20px;
+  padding: 15px 5px 15px 30px;
   border: none;
   font-size: 20px;
-  width: 70%;
+  width: calc(90% - 110px);
   text-transform: uppercase;
   outline: none;
 `
@@ -112,7 +97,7 @@ const SearchSubmit = styled.button`
   border-radius: 0 120px 120px 0;
   border: none;
   width: 110px;
-  height: 62px;
+  height: 52px;
   text-transform: uppercase;
   outline: none;
   cursor: pointer;

@@ -1,6 +1,5 @@
 import Header from '../components/Header'
 import Container from '../components/Container'
-import FixedButton from '../components/FixedButton'
 import Drawer from '../components/Drawer'
 import PokemonList from '../components/PokemonList'
 import PokemonModal from '../components/PokemonModal'
@@ -17,7 +16,6 @@ export default function Home() {
         <AnimatePresence>
           <PokemonModal />
         </AnimatePresence>
-        <FixedButton />
         <Drawer />
       </AnimateSharedLayout>
     </>

@@ -20,24 +20,21 @@ export default function FixedButton() {
     </Button>
   )
 }
+
 const Button = styled.div`
-  position: fixed;
-  bottom: -55px;
-  right: -50px;
-  transform: scale(0.2);
   cursor: pointer;
+  transform: scale(0.8);
 `
 const PokeBall = styled.div`
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 50px;
+  height: 50px;
   background: #fff;
-  border: 10px solid #000;
+  border: 3px solid #000;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: inset -10px 10px 0 10px #ccc;
-  animation: fall 0.25s ease-in-out,
-    shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 6;
+  box-shadow: inset -5px 5px 0 5px #ccc;
+  animation: shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3;
   &::before,
   &::after {
     content: '';
@@ -49,84 +46,54 @@ const PokeBall = styled.div`
     height: 50%;
   }
   &::after {
-    top: calc(50% - 10px);
+    top: calc(50% - 2px);
     width: 100%;
-    height: 20px;
+    height: 4px;
     background: #000;
   }
   &:hover {
-    animation: shake2 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+    animation: rotate 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
   }
   @keyframes shake {
     0% {
       transform: translate(0, 0) rotate(0);
     }
     20% {
-      transform: translate(-10px, 0) rotate(-20deg);
+      transform: translate(-5px, 0) rotate(-20deg);
     }
     30% {
-      transform: translate(10px, 0) rotate(20deg);
+      transform: translate(5px, 0) rotate(20deg);
     }
     50% {
-      transform: translate(-10px, 0) rotate(-10deg);
+      transform: translate(-5px, 0) rotate(-10deg);
     }
     60% {
-      transform: translate(10px, 0) rotate(10deg);
+      transform: translate(5px, 0) rotate(10deg);
     }
     100% {
       transform: translate(0, 0) rotate(0);
     }
   }
-  @keyframes shake2 {
+  @keyframes rotate {
     0% {
-      transform: translate(0, 0) rotate(0);
-    }
-    20% {
-      transform: translate(-10px, 0) rotate(-20deg);
-    }
-    30% {
-      transform: translate(10px, 0) rotate(20deg);
-    }
-    50% {
-      transform: translate(-10px, 0) rotate(-10deg);
-    }
-    60% {
-      transform: translate(10px, 0) rotate(10deg);
+      transform: rotate(0);
     }
     100% {
-      transform: translate(0, 0) rotate(0);
-    }
-  }
-  @keyframes fall {
-    0% {
-      top: -50px;
-      opacity: 0;
-    }
-    60% {
-      top: 0;
-      opacity: 1;
-    }
-    80% {
-      top: -20px;
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      opacity: 1;
+      transform: rotate(360deg);
     }
   }
 `
 const PokeBallButton = styled.div`
   position: absolute;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  width: 60px;
-  height: 60px;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
   background: #7f8c8d;
-  border: 10px solid #fff;
+  border: 2px solid #fff;
   border-radius: 50%;
   z-index: 10;
-  box-shadow: 0 0 0 10px black;
+  box-shadow: 0 0 0 3px black;
   animation: blink 2s infinite;
   @keyframes blink {
     0% {
