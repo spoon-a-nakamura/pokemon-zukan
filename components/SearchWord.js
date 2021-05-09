@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
-import pokemonData from '../data/pokemon.json'
-// import pokemonData from '../data/pokemon_full.json'
 import { FilterContext } from './FilterReducer'
+// import pokemonData from '../data/pokemon.json'
+import pokemonData from '../data/pokemon_full.json'
 
 export default function SearchWord() {
   // Providerから渡ってくるContextをstateとdispatchに分割代入
