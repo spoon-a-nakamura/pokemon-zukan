@@ -18,7 +18,7 @@ export default function GlobalCss() {
           font-family: mr-eaves-modern, tbcgothic-std, sans-serif;
           font-weight: 800;
           font-style: normal;
-          color: #333;
+          color: #000;
           background: #fff;
         }
         input,

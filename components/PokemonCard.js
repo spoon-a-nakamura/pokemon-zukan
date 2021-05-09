@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
 import LazyImage from '../components/LazyImage'
+import pokemonTypes from '../data/types.json'
 
 const LazyImageMemo = React.memo((props) => {
   return (
@@ -28,7 +29,14 @@ export default function PokemonCard({ id, pokemon }) {
       <LazyImageMemo key={id} src={pokemon.id} alt={pokemon.name.japanese} />
       <TypeListWrap>
         {pokemon.type.map((type, index) => {
-          return <TypeList key={index}>{type}</TypeList>
+          return (
+            <TypeList key={index}>
+              {pokemonTypes.map(
+                (pokemonType) =>
+                  pokemonType.english === type && pokemonType.japanese
+              )}
+            </TypeList>
+          )
         })}
       </TypeListWrap>
       <StatusListWrap>
@@ -72,15 +80,14 @@ const Card = styled(motion.div)`
   flex-direction: column;
   padding: 20px;
   border-radius: 20px;
-  /* background: rgba(255, 255, 255, 0.6); */
-  /* backdrop-filter: blur(15px); */
-  /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
   width: fit-content;
   height: fit-content;
   margin: auto;
 `
-const NameWrapper = styled.div``
+const NameWrapper = styled.div`
+  margin-bottom: 20px;
+`
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
@@ -95,11 +102,26 @@ const NameEnglish = styled.div`
 `
 const TypeListWrap = styled.ul`
   display: flex;
-  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  text-align: center;
+  background: rgba(0, 0, 0, 1);
+  padding: 10px 30px 8px;
+  border-radius: 100px;
 `
 const TypeList = styled.li`
-  font-size: 20px;
-  margin-right: 5px;
+  font-size: 14px;
+  color: #fff;
+  &:not(:last-child) {
+    margin-right: 10px;
+    padding-right: 10px;
+    &::after {
+      content: '/';
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
 `
 
 const StatusListWrap = styled.ul`
