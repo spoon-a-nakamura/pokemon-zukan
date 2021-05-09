@@ -5,6 +5,7 @@ import ProgressBar from './ProgressBar'
 import LazyImage from '../components/LazyImage'
 
 export default function PokemonCard({ id, pokemon }) {
+  console.log('Render PokemonCard')
   return (
     <Card layoutId={id}>
       <NameWrapper>

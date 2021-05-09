@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
 export default function Container({ children }) {
+  console.log('Render Container')
   return (
     <Wrapper>
       <Main>{children}</Main>

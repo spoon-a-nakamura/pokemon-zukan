@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 
 export default function ProgressBar({ value }) {
+  console.log('Render ProgressBar')
   const transition = {
     duration: 1,
     delay: 0.2,

@@ -6,6 +6,8 @@ import pokemonTypes from '../data/types.json'
 import pokemonData from '../data/pokemon_full.json'
 
 export default function SearchTypes() {
+  console.log('Render SearchTypes')
+
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 

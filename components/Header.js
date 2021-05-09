@@ -4,6 +4,7 @@ import SearchTypes from './SearchTypes'
 import SearchWord from './SearchWord'
 
 export default function Header() {
+  console.log('Render Header')
   const reload = () => Router.reload()
   return (
     <Wrapper>

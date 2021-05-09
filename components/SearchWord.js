@@ -5,6 +5,8 @@ import { FilterContext } from './FilterReducer'
 import pokemonData from '../data/pokemon_full.json'
 
 export default function SearchWord() {
+  console.log('Render SearchWord')
+
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 

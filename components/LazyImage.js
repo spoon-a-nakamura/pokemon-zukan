@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 
 export default function LazyImage({ src, alt, width, height, modal }) {
+  console.log('Render LazyImage')
+
   const [imageSrc, setImageSrc] = useState('/images/common/pokemon_ball.gif')
   const [imageRef, setImageRef] = useState()
 

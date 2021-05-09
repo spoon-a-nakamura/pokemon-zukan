@@ -7,6 +7,8 @@ import { animationProps } from '../components/Utility'
 import { device } from '../components/MediaQuery'
 
 export default function PokemonModal() {
+  console.log('Render PokemonModal')
+
   // Providerから渡ってくるContextをstateとdispatchに分割代入
   const { state, dispatch } = useContext(FilterContext)
 
