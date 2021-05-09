@@ -1,9 +1,22 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
 import LazyImage from '../components/LazyImage'
 
+const LazyImageMemo = React.memo((props) => {
+  return (
+    <LazyImage
+      key={props.key}
+      src={`/images/pokemon/${zeroPadding(props.src)}.png`}
+      alt={props.alt}
+      width={400}
+      height={400}
+      modal={true}
+    />
+  )
+})
 export default function PokemonCard({ id, pokemon }) {
   console.log('Render PokemonCard')
   return (
@@ -12,14 +25,7 @@ export default function PokemonCard({ id, pokemon }) {
         <NameEnglish>{pokemon.name.english}</NameEnglish>
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
-      <LazyImage
-        key={id}
-        src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
-        alt={pokemon.name.japanese}
-        width={400}
-        height={400}
-        modal={true}
-      />
+      <LazyImageMemo key={id} src={pokemon.id} alt={pokemon.name.japanese} />
       <TypeListWrap>
         {pokemon.type.map((type, index) => {
           return <TypeList key={index}>{type}</TypeList>

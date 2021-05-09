@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
 import { FilterContext } from '../components/FilterReducer'
 import { animationProps, zeroPadding } from '../components/Utility'
@@ -6,6 +6,18 @@ import { motion } from 'framer-motion'
 import { device } from '../components/MediaQuery'
 import LazyImage from '../components/LazyImage'
 
+const LazyImageMemo = React.memo((props) => {
+  return (
+    <LazyImage
+      key={props.key}
+      src={`/images/pokemon/${zeroPadding(props.src)}.png`}
+      alt={props.alt}
+      width={400}
+      height={400}
+      modal={false}
+    />
+  )
+})
 export default function PokemonList() {
   console.log('Render PokemonList')
   const { state, dispatch } = useContext(FilterContext)
@@ -36,13 +48,10 @@ export default function PokemonList() {
                   <NameJapanese>{pokemon.name.japanese}</NameJapanese>
                 </NameWrapper>
                 <ImageWrapper>
-                  <LazyImage
+                  <LazyImageMemo
                     key={index}
-                    src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
+                    src={pokemon.id}
                     alt={pokemon.name.japanese}
-                    width={400}
-                    height={400}
-                    modal={false}
                   />
                 </ImageWrapper>
               </CardContentsInner>
