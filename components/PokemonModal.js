@@ -15,8 +15,15 @@ export default function PokemonModal() {
       {state.showingPokemonList.map(
         (pokemon, index) =>
           state.showDetailPokemonTarget === index + 1 && (
-            <Modal key={index}>
+            <Modal key={index} transition={animationProps.transition}>
               <ModalContent>
+                <Name
+                  initial={{ opacity: 0, y: '-50%' }}
+                  animate={{ opacity: 0.5, scale: [1.5, 0.6], y: '-50%' }}
+                  exit={{ opacity: 0, y: '-50%' }}
+                >
+                  {pokemon.name.english}
+                </Name>
                 <ModalButton
                   onClick={() => {
                     dispatch({
@@ -69,19 +76,21 @@ export default function PokemonModal() {
   )
 }
 
-const Modal = styled.div`
+const Modal = styled(motion.div)`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-wrap: wrap;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(15px);
   justify-content: center;
   width: 100%;
   height: 100vh;
   pointer-events: none;
   z-index: 20;
+  transition: all ease 0.5s;
   & + div {
     background: rgba(0, 0, 0, 0);
   }
@@ -134,4 +143,13 @@ const ModalButton = styled(motion.div)`
   @media ${device.tablet} {
     order: 0;
   }
+`
+const Name = styled(motion.div)`
+  position: fixed;
+  top: 50%;
+  font-size: 500px;
+  color: #fff;
+  z-index: -1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 `

@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { zeroPadding } from '../components/Utility'
 import ProgressBar from './ProgressBar'
+import LazyImage from '../components/LazyImage'
 
 export default function PokemonCard({ id, pokemon }) {
   return (
@@ -10,11 +11,13 @@ export default function PokemonCard({ id, pokemon }) {
         <NameEnglish>{pokemon.name.english}</NameEnglish>
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
-      <Image
+      <LazyImage
+        key={id}
         src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
         alt={pokemon.name.japanese}
         width={400}
         height={400}
+        modal={true}
       />
       <TypeListWrap>
         {pokemon.type.map((type, index) => {
@@ -62,8 +65,9 @@ const Card = styled(motion.div)`
   flex-direction: column;
   padding: 20px;
   border-radius: 20px;
-  background: #fff;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  /* background: rgba(255, 255, 255, 0.6); */
+  /* backdrop-filter: blur(15px); */
+  /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
   width: fit-content;
   height: fit-content;
@@ -81,12 +85,6 @@ const NameEnglish = styled.div`
   font-size: 5vw;
   text-transform: uppercase;
   text-align: center;
-`
-const Image = styled.img`
-  max-width: 70%;
-  height: auto;
-  object-fit: contain;
-  margin: auto;
 `
 const TypeListWrap = styled.ul`
   display: flex;

@@ -22,7 +22,7 @@ const Bar = styled.div`
   overflow: hidden;
   position: relative;
   border-radius: 20px;
-  background: #eee;
+  background: rgba(255, 255, 255, 0.3);
   height: 20px;
   width: 60%;
   margin-left: auto;
@@ -32,6 +32,6 @@ const BarFilling = styled(motion.div)`
   top: 0;
   left: 0;
   height: 100%;
-  background: #000;
+  background: #fff;
   border-radius: 20px;
 `

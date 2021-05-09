@@ -97,7 +97,7 @@ const SearchWrapper = styled.form`
   width: 60vw;
 `
 const Search = styled.input`
-  background: #eee;
+  background: #f5f5f5;
   border-radius: 120px 0 0 120px;
   padding: 20px;
   border: none;
@@ -107,7 +107,7 @@ const Search = styled.input`
   outline: none;
 `
 const SearchSubmit = styled.button`
-  background: #eee url(/images/common/pika.gif) 0 center / contain no-repeat;
+  background: #f5f5f5 url(/images/common/pika.gif) 0 center / contain no-repeat;
   color: #fff;
   border-radius: 0 120px 120px 0;
   border: none;

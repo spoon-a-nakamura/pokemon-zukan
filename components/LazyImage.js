@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 
-export default function LazyImage({ src, alt, width, height }) {
+export default function LazyImage({ src, alt, width, height, modal }) {
   const [imageSrc, setImageSrc] = useState('/images/common/pokemon_ball.gif')
   const [imageRef, setImageRef] = useState()
 
@@ -57,12 +57,14 @@ export default function LazyImage({ src, alt, width, height }) {
       height={height}
       onLoad={onLoad}
       onError={onError}
+      modal={modal}
     />
   )
 }
 
 const Image = styled.img`
-  max-width: 100%;
+  margin: auto;
+  max-width: ${({ modal }) => (modal ? '70%' : '100%')};
   height: auto;
   object-fit: contain;
   transition: all ease-in-out 0.5s;

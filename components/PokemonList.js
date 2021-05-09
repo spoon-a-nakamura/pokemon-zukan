@@ -32,13 +32,16 @@ export default function PokemonList() {
                   <NameEnglish>{pokemon.name.english}</NameEnglish>
                   <NameJapanese>{pokemon.name.japanese}</NameJapanese>
                 </NameWrapper>
-                <LazyImage
-                  key={index}
-                  src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
-                  alt={pokemon.name.japanese}
-                  width={400}
-                  height={400}
-                />
+                <ImageWrapper>
+                  <LazyImage
+                    key={index}
+                    src={`/images/pokemon/${zeroPadding(pokemon.id)}.png`}
+                    alt={pokemon.name.japanese}
+                    width={400}
+                    height={400}
+                    modal={false}
+                  />
+                </ImageWrapper>
               </CardContentsInner>
             </CardContents>
             <ListNumber>No.{`${pokemon.id}`}</ListNumber>
@@ -81,16 +84,10 @@ const CardContents = styled.a`
   flex-direction: column;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   cursor: pointer;
-  background: #fff;
-  transition: all ease-out 0.5s;
+  transition: all ease-in-out 0.5s;
   will-change: transform, box-shadow;
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
-  }
 `
 const CardContentsInner = styled.div``
 const NameWrapper = styled.div``
@@ -106,8 +103,14 @@ const NameEnglish = styled.div`
   text-transform: uppercase;
   text-align: center;
 `
+const ImageWrapper = styled.div`
+  transition: all ease-in-out 0.3s;
+  will-change: transform;
+  &:hover {
+    transform: scale(1.1);
+  }
+`
 const ListNumber = styled.p`
   font-size: 14px;
   text-align: center;
-  margin-top: 15px;
 `

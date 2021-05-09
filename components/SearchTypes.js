@@ -95,5 +95,5 @@ const List = styled.li`
     margin-right: 10px;
   }
   color: ${({ selectedTypes }) => (selectedTypes ? '#fff' : '#000')};
-  background: ${({ selectedTypes }) => (selectedTypes ? '#000' : '#eee')};
+  background: ${({ selectedTypes }) => (selectedTypes ? '#000' : '#f5f5f5')};
 `
