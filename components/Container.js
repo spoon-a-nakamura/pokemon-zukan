@@ -14,5 +14,5 @@ const Wrapper = styled.div`
 `
 
 const Main = styled.main`
-  margin-top: 200px;
+  margin-top: 110px;
 `

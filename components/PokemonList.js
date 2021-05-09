@@ -18,12 +18,16 @@ export default function PokemonList() {
             layoutId={index + 1}
             animate={animationProps.animate}
             exit={animationProps.exit}
-            onClick={() =>
+            onClick={() => {
               dispatch({
                 type: 'setShowDetailPokemonTarget',
                 showDetailPokemonTarget: index + 1,
               })
-            }
+              dispatch({
+                type: 'setIsDrawerOpen',
+                isDrawerOpen: false,
+              })
+            }}
           >
             <CardContents>
               <CardContentsInner>

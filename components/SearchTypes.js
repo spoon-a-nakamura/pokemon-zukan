@@ -70,30 +70,36 @@ export default function SearchTypes() {
   )
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 74px);
+`
 const ListWrapper = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  overflow-y: auto;
   width: 100%;
-  height: 90px;
-  margin: 10px auto 0;
+  height: 100%;
 `
 const List = styled.li`
+  width: 100%;
   font-size: 12px;
   font-weight: bold;
-  padding: 10px 15px 7px;
-  margin-bottom: 5px;
-  border-radius: 20px;
   cursor: pointer;
+  border-bottom: 1px solid #ddd;
   transition: all ease-in-out 0.3s;
+  padding: ${({ selectedTypes }) => (selectedTypes ? '40px 20px' : '20px')};
+  background: ${({ selectedTypes }) =>
+    selectedTypes ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0)'};
   &:hover {
-    background: ${({ selectedTypes }) => (selectedTypes ? '#222' : '#ddd')};
+    padding-left: 30px;
+    background: ${({ selectedTypes }) =>
+      selectedTypes ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.02)'};
   }
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
-  color: ${({ selectedTypes }) => (selectedTypes ? '#fff' : '#000')};
-  background: ${({ selectedTypes }) => (selectedTypes ? '#000' : '#f5f5f5')};
 `
