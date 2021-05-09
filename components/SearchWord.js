@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react'
 import styled from '@emotion/styled'
 import { FilterContext } from './FilterReducer'
-// import pokemonData from '../data/pokemon.json'
-import pokemonData from '../data/pokemon_full.json'
+import pokemonData from '../data/pokemon.json'
+// import pokemonData from '../data/pokemon_full.json'
 
 export default function SearchWord() {
   console.log('Render SearchWord')
