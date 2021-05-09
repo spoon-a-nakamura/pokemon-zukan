@@ -19,7 +19,7 @@ export default function GlobalCss() {
           font-weight: 800;
           font-style: normal;
           color: #333;
-          background: #f5f5f5;
+          background: #fff;
         }
         input,
         select,

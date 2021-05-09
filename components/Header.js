@@ -15,7 +15,8 @@ export default function Header() {
 }
 
 const Wrapper = styled.div`
-  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
   padding: 2% 2% 10px;
   display: flex;
   flex-wrap: wrap;

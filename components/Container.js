@@ -9,7 +9,6 @@ export default function Container({ children }) {
 }
 
 const Wrapper = styled.div`
-  background: #f5f5f5;
   padding: 2%;
 `
 
