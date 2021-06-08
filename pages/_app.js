@@ -1,21 +1,21 @@
-import Head from 'next/head'
-import React, { useEffect, useReducer } from 'react'
-import { adobeLoader } from '../fonts/adobeLoader'
-import GlobalCss from '../components/GlobalCss'
+import Head from 'next/head';
+import React, { useEffect, useReducer } from 'react';
+import { adobeLoader } from '../fonts/adobeLoader';
+import GlobalCss from '../components/GlobalCss';
 import {
   FilterReducer,
   initialStates,
   FilterContext,
-} from '../components/FilterReducer'
+} from '../components/FilterReducer';
 
 export default function App({ Component, pageProps }) {
   // FilterReducer.jsファイルで定義したactionとStateの初期値を引数にしたReducer関数を、stateとdispatchに分割代入
-  const [state, dispatch] = useReducer(FilterReducer, initialStates)
+  const [state, dispatch] = useReducer(FilterReducer, initialStates);
 
   // AdobeFontの読み込み
   useEffect(() => {
-    if (process.browser) adobeLoader(document)
-  }, [])
+    if (process.browser) adobeLoader(document);
+  }, []);
   return (
     <>
       <Head>
@@ -27,10 +27,7 @@ export default function App({ Component, pageProps }) {
         <meta name='robots' content='index,follow' />
         <meta name='author' content='スタジオスプーン' />
         <title>ポケモン図鑑</title>
-        <meta
-          name='description'
-          content='みんな大好き、ポケモン図鑑（制作：スタジオスプーン 中村明史 @maroponta）'
-        />
+        <meta name='description' content='みんな大好き、ポケモン図鑑' />
         <meta
           name='keywords'
           content='ポケモン図鑑, ポケモン, 図鑑, React, スタジオスプーン'
@@ -51,10 +48,7 @@ export default function App({ Component, pageProps }) {
           property='og:image'
           content='https://pokemon-zukan.vercel.app/images/common/ogimg.png'
         />
-        <meta
-          property='og:description'
-          content='みんな大好き、ポケモン図鑑（制作：スタジオスプーン 中村明史 @maroponta）'
-        />
+        <meta property='og:description' content='みんな大好き、ポケモン図鑑' />
         <meta property='og:url' content='https://pokemon-zukan.vercel.app/' />
         <meta property='og:type' content='website' />
         <meta property='og:locale' content='ja_JP' />
@@ -78,5 +72,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </FilterContext.Provider>
     </>
-  )
+  );
 }
