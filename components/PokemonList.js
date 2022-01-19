@@ -26,8 +26,8 @@ export default function PokemonList() {
       <ListWrap>
         {state.showingPokemonList.map((pokemon, index) => (
           <Card
-            key={index}
-            layoutId={index + 1}
+            key={pokemon.id}
+            layoutId={pokemon.id}
             animate={animationProps.animate}
             exit={animationProps.exit}
             onClick={() => {
