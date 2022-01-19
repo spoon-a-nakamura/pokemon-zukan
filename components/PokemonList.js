@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import styled from '@emotion/styled'
-import { FilterContext } from '../components/FilterReducer'
-import { animationProps, zeroPadding } from '../components/Utility'
-import { motion } from 'framer-motion'
-import { device } from '../components/MediaQuery'
-import LazyImage from '../components/LazyImage'
+import React, { useContext } from 'react';
+import styled from '@emotion/styled';
+import { FilterContext } from '../components/FilterReducer';
+import { animationProps, zeroPadding } from '../components/Utility';
+import { motion } from 'framer-motion';
+import { device } from '../components/MediaQuery';
+import LazyImage from '../components/LazyImage';
 
 const LazyImageMemo = React.memo((props) => {
   return (
@@ -16,11 +16,11 @@ const LazyImageMemo = React.memo((props) => {
       height={400}
       modal={false}
     />
-  )
-})
+  );
+});
 export default function PokemonList() {
-  console.log('Render PokemonList')
-  const { state, dispatch } = useContext(FilterContext)
+  console.log('Render PokemonList');
+  const { state, dispatch } = useContext(FilterContext);
   return (
     <>
       <ListWrap>
@@ -34,11 +34,11 @@ export default function PokemonList() {
               dispatch({
                 type: 'setShowDetailPokemonTarget',
                 showDetailPokemonTarget: index + 1,
-              })
+              });
               dispatch({
                 type: 'setIsDrawerOpen',
                 isDrawerOpen: false,
-              })
+              });
             }}
           >
             <CardContents>
@@ -61,7 +61,7 @@ export default function PokemonList() {
         ))}
       </ListWrap>
     </>
-  )
+  );
 }
 
 const ListWrap = styled.ul`
@@ -71,7 +71,7 @@ const ListWrap = styled.ul`
   gap: 2%;
   width: 100%;
   list-style: none;
-`
+`;
 const Card = styled(motion.li)`
   width: 49%;
   display: flex;
@@ -92,7 +92,7 @@ const Card = styled(motion.li)`
   @media ${device.overDesktop} {
     width: 9%;
   }
-`
+`;
 const CardContents = styled.a`
   display: flex;
   flex-direction: column;
@@ -104,20 +104,20 @@ const CardContents = styled.a`
   cursor: pointer;
   transition: all ease-in-out 0.5s;
   will-change: transform, box-shadow;
-`
+`;
 const CardContentsInner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 const NameWrapper = styled.div`
   margin-bottom: 15px;
   margin-top: auto;
   @media ${device.underMobileL} {
     margin-bottom: 5px;
   }
-`
+`;
 const NameEnglish = styled.div`
   font-family: mr-eaves-modern, sans-serif;
   font-weight: 700;
@@ -132,7 +132,7 @@ const NameEnglish = styled.div`
   @media ${device.underMobileL} {
     font-size: 5vw;
   }
-`
+`;
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 12px;
@@ -142,7 +142,7 @@ const NameJapanese = styled.div`
   @media ${device.underMobileL} {
     font-size: 3vw;
   }
-`
+`;
 const ImageWrapper = styled.div`
   position: relative;
   transition: all ease-in-out 0.3s;
@@ -168,7 +168,7 @@ const ImageWrapper = styled.div`
       transform: translateY(-50%) translateX(-50%) scale(1);
     }
   }
-`
+`;
 const ListNumber = styled.p`
   font-size: 13px;
   text-align: center;
@@ -177,4 +177,4 @@ const ListNumber = styled.p`
   @media ${device.underMobileL} {
     margin-top: -15px;
   }
-`
+`;

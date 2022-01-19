@@ -1,14 +1,14 @@
-import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
-import { device } from '../components/MediaQuery'
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import { device } from '../components/MediaQuery';
 
 export default function ProgressBar({ value }) {
-  console.log('Render ProgressBar')
+  console.log('Render ProgressBar');
   const transition = {
     duration: 1,
     delay: 0.2,
     ease: 'easeInOut',
-  }
+  };
   return (
     <Bar>
       <BarFilling
@@ -17,7 +17,7 @@ export default function ProgressBar({ value }) {
         transition={transition}
       />
     </Bar>
-  )
+  );
 }
 const Bar = styled.div`
   overflow: hidden;
@@ -30,7 +30,7 @@ const Bar = styled.div`
   @media ${device.underMobileL} {
     width: 50%;
   }
-`
+`;
 const BarFilling = styled(motion.div)`
   position: absolute;
   top: 0;
@@ -38,4 +38,4 @@ const BarFilling = styled(motion.div)`
   height: 100%;
   background: #fff;
   border-radius: 20px;
-`
+`;

@@ -1,25 +1,25 @@
-import { useContext } from 'react'
-import { FilterContext } from '../components/FilterReducer'
-import styled from '@emotion/styled'
-import { device } from '../components/MediaQuery'
+import { useContext } from 'react';
+import { FilterContext } from '../components/FilterReducer';
+import styled from '@emotion/styled';
+import { device } from '../components/MediaQuery';
 
 export default function FixedButton() {
-  console.log('Render FixedButton')
-  const { dispatch } = useContext(FilterContext)
+  console.log('Render FixedButton');
+  const { dispatch } = useContext(FilterContext);
   return (
     <Button
       onClick={() => {
         dispatch({
           type: 'setIsDrawerOpen',
           isDrawerOpen: true,
-        })
+        });
       }}
     >
       <PokeBall>
         <PokeBallButton />
       </PokeBall>
     </Button>
-  )
+  );
 }
 
 const Button = styled.div`
@@ -28,7 +28,7 @@ const Button = styled.div`
   @media ${device.underMobileL} {
     transform: scale(0.6);
   }
-`
+`;
 const PokeBall = styled.div`
   position: relative;
   width: 50px;
@@ -86,7 +86,7 @@ const PokeBall = styled.div`
       transform: rotate(360deg);
     }
   }
-`
+`;
 const PokeBallButton = styled.div`
   position: absolute;
   top: calc(50% - 8px);
@@ -110,4 +110,4 @@ const PokeBallButton = styled.div`
       background: #eee;
     }
   }
-`
+`;

@@ -1,14 +1,14 @@
-import { useContext } from 'react'
-import styled from '@emotion/styled'
-import PokemonCard from '../components/PokemonCard'
-import { motion } from 'framer-motion'
-import { FilterContext } from '../components/FilterReducer'
-import { animationProps } from '../components/Utility'
-import { device } from '../components/MediaQuery'
+import { useContext } from 'react';
+import styled from '@emotion/styled';
+import PokemonCard from '../components/PokemonCard';
+import { motion } from 'framer-motion';
+import { FilterContext } from '../components/FilterReducer';
+import { animationProps } from '../components/Utility';
+import { device } from '../components/MediaQuery';
 
 export default function PokemonModal() {
-  console.log('Render PokemonModal')
-  const { state, dispatch } = useContext(FilterContext)
+  console.log('Render PokemonModal');
+  const { state, dispatch } = useContext(FilterContext);
   return (
     <>
       {state.showingPokemonList.map(
@@ -21,7 +21,7 @@ export default function PokemonModal() {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
                       showDetailPokemonTarget: null,
-                    })
+                    });
                   }}
                 />
                 <Name
@@ -36,7 +36,7 @@ export default function PokemonModal() {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
                       showDetailPokemonTarget: index,
-                    })
+                    });
                   }}
                   initial={animationProps.initial}
                   animate={animationProps.animate}
@@ -52,7 +52,7 @@ export default function PokemonModal() {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
                       showDetailPokemonTarget: null,
-                    })
+                    });
                   }}
                   transition={animationProps.transition}
                   animate={animationProps.animate}
@@ -64,7 +64,7 @@ export default function PokemonModal() {
                     dispatch({
                       type: 'setShowDetailPokemonTarget',
                       showDetailPokemonTarget: index + 2,
-                    })
+                    });
                   }}
                   initial={animationProps.initial}
                   animate={animationProps.animate}
@@ -77,10 +77,10 @@ export default function PokemonModal() {
                 </ModalButton>
               </ModalContent>
             </Modal>
-          )
+          ),
       )}
     </>
-  )
+  );
 }
 
 const Modal = styled(motion.div)`
@@ -101,7 +101,7 @@ const Modal = styled(motion.div)`
   & + div {
     background: rgba(0, 0, 0, 0);
   }
-`
+`;
 const ModalContent = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -113,7 +113,7 @@ const ModalContent = styled.div`
   @media ${device.underMobileL} {
     padding: 20px 0;
   }
-`
+`;
 const ModalCard = styled(motion.div)`
   pointer-events: initial;
   cursor: pointer;
@@ -131,7 +131,7 @@ const ModalCard = styled(motion.div)`
   @media ${device.overTablet} {
     margin: auto;
   }
-`
+`;
 const ModalButton = styled(motion.div)`
   background: #000;
   border-radius: 100px;
@@ -161,7 +161,7 @@ const ModalButton = styled(motion.div)`
     margin-top: -20px;
     margin-bottom: auto;
   }
-`
+`;
 const Name = styled(motion.div)`
   position: fixed;
   top: 50%;
@@ -174,7 +174,7 @@ const Name = styled(motion.div)`
   @media ${device.underMobileL} {
     font-size: 250px;
   }
-`
+`;
 const Close = styled.div`
   position: absolute;
   cursor: pointer;
@@ -194,4 +194,4 @@ const Close = styled.div`
     width: 30px;
     height: 30px;
   }
-`
+`;
