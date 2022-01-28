@@ -28,7 +28,9 @@ export default function Drawer() {
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
-  right: ${({ isDrawerOpen }) => (isDrawerOpen ? '0' : '-70%')};
+  right: 0;
+  transform: ${({ isDrawerOpen }) =>
+    `translateX(${isDrawerOpen ? 0 : '100%'})`};
   width: 200px;
   height: 100vh;
   overflow: hidden;
@@ -41,7 +43,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.05);
   z-index: 20;
-  transition: right ease-in-out 1s;
+  transition: transform ease-in-out 0.3s;
 `;
 const Close = styled.div`
   width: 100%;
