@@ -22,7 +22,12 @@ export default function FixedButton() {
   );
 }
 
-const Button = styled.div`
+const Button = styled.button`
+  appearance: none;
+  border: none;
+  padding: 0;
+  background: none;
+  box-shadow: none;
   cursor: pointer;
   transform: scale(0.8);
   @media ${device.underMobileL} {
