@@ -10,7 +10,6 @@ import { device } from '../components/MediaQuery';
 const LazyImageMemo = React.memo((props) => {
   return (
     <LazyImage
-      key={props.key}
       src={`/images/pokemon/${zeroPadding(props.src)}.png`}
       alt={props.alt}
       width={400}

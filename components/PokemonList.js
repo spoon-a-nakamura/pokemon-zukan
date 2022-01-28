@@ -9,7 +9,6 @@ import LazyImage from '../components/LazyImage';
 const LazyImageMemo = React.memo((props) => {
   return (
     <LazyImage
-      key={props.key}
       src={`/images/pokemon/${zeroPadding(props.src)}.png`}
       alt={props.alt}
       width={400}
