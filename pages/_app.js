@@ -8,9 +8,25 @@ import {
   FilterContext,
 } from '../components/FilterReducer';
 
+const useVhProperty = () => {
+  useEffect(() => {
+    const updateVhProperty = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    updateVhProperty();
+    window.addEventListener('resize', updateVhProperty);
+    return () => {
+      document.documentElement.style.removeProperty('--vh');
+      window.removeEventListener('resize', updateVhProperty);
+    };
+  }, []);
+};
+
 export default function App({ Component, pageProps }) {
   // FilterReducer.jsファイルで定義したactionとStateの初期値を引数にしたReducer関数を、stateとdispatchに分割代入
   const [state, dispatch] = useReducer(FilterReducer, initialStates);
+  useVhProperty();
 
   // AdobeFontの読み込み
   useEffect(() => {
