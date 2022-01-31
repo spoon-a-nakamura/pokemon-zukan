@@ -30,65 +30,80 @@ function getColumnCount(width) {
   return 2;
 }
 
-export default function PokemonList({ width, height }) {
+const MemoizedPokemonList = React.memo(
+  ({ width, height, showingPokemonList, dispatch }) => {
+    const columnCount = getColumnCount(width);
+    const rowCount = Math.ceil(showingPokemonList.length / columnCount);
+    const columnWidth = width / columnCount;
+    const rowHeight = columnWidth * 1.4;
+    return (
+      <Grid
+        columnCount={columnCount}
+        rowCount={rowCount}
+        columnWidth={columnWidth}
+        rowHeight={rowHeight}
+        width={width}
+        height={height}
+      >
+        {({ columnIndex, rowIndex, style }) => {
+          const index = rowIndex * columnCount + columnIndex;
+          const pokemon = showingPokemonList[index];
+          if (!pokemon) return null;
+          return (
+            <CardItem
+              style={style}
+              key={pokemon.id}
+              layoutId={pokemon.id}
+              animate={animationProps.animate}
+              exit={animationProps.exit}
+              onClick={() => {
+                dispatch({
+                  type: 'setShowDetailPokemonTarget',
+                  showDetailPokemonTarget: index + 1,
+                });
+                dispatch({
+                  type: 'setIsDrawerOpen',
+                  isDrawerOpen: false,
+                });
+              }}
+            >
+              <CardContents>
+                <CardContentsInner>
+                  <NameWrapper>
+                    <NameEnglish>{pokemon.name.english}</NameEnglish>
+                    <NameJapanese>{pokemon.name.japanese}</NameJapanese>
+                  </NameWrapper>
+                  <ImageWrapper>
+                    <LazyImageMemo
+                      key={index}
+                      src={pokemon.id}
+                      alt={pokemon.name.japanese}
+                    />
+                  </ImageWrapper>
+                </CardContentsInner>
+              </CardContents>
+              <ListNumber>No.{`${pokemon.id}`}</ListNumber>
+            </CardItem>
+          );
+        }}
+      </Grid>
+    );
+  },
+);
+
+const PokemonList = ({ width, height }) => {
   const { state, dispatch } = useContext(FilterContext);
-  const columnCount = getColumnCount(width);
-  const rowCount = Math.ceil(state.showingPokemonList.length / columnCount);
-  const columnWidth = width / columnCount;
-  const rowHeight = columnWidth * 1.4;
   return (
-    <Grid
-      columnCount={columnCount}
-      rowCount={rowCount}
-      columnWidth={columnWidth}
-      rowHeight={rowHeight}
+    <MemoizedPokemonList
       width={width}
       height={height}
-    >
-      {({ columnIndex, rowIndex, style }) => {
-        const index = rowIndex * columnCount + columnIndex;
-        const pokemon = state.showingPokemonList[index];
-        if (!pokemon) return null;
-        return (
-          <CardItem
-            style={style}
-            key={pokemon.id}
-            layoutId={pokemon.id}
-            animate={animationProps.animate}
-            exit={animationProps.exit}
-            onClick={() => {
-              dispatch({
-                type: 'setShowDetailPokemonTarget',
-                showDetailPokemonTarget: index + 1,
-              });
-              dispatch({
-                type: 'setIsDrawerOpen',
-                isDrawerOpen: false,
-              });
-            }}
-          >
-            <CardContents>
-              <CardContentsInner>
-                <NameWrapper>
-                  <NameEnglish>{pokemon.name.english}</NameEnglish>
-                  <NameJapanese>{pokemon.name.japanese}</NameJapanese>
-                </NameWrapper>
-                <ImageWrapper>
-                  <LazyImageMemo
-                    key={index}
-                    src={pokemon.id}
-                    alt={pokemon.name.japanese}
-                  />
-                </ImageWrapper>
-              </CardContentsInner>
-            </CardContents>
-            <ListNumber>No.{`${pokemon.id}`}</ListNumber>
-          </CardItem>
-        );
-      }}
-    </Grid>
+      dispatch={dispatch}
+      showingPokemonList={state.showingPokemonList}
+    />
   );
-}
+};
+
+export default PokemonList;
 
 const CardItem = styled(motion.div)`
   padding: 0 1%;
