@@ -5,6 +5,7 @@ import { animationProps, zeroPadding } from '../components/Utility';
 import { motion } from 'framer-motion';
 import { device } from '../components/MediaQuery';
 import LazyImage from '../components/LazyImage';
+import { FixedSizeGrid as Grid } from 'react-window';
 
 const LazyImageMemo = React.memo((props) => {
   return (
@@ -17,14 +18,40 @@ const LazyImageMemo = React.memo((props) => {
     />
   );
 });
-export default function PokemonList() {
-  console.log('Render PokemonList');
+
+function getColumnCount(width) {
+  if (width >= 1024) {
+    return 6;
+  } else if (width >= 768) {
+    return 4;
+  } else if (width >= 425) {
+    return 3;
+  }
+  return 2;
+}
+
+export default function PokemonList({ width, height }) {
   const { state, dispatch } = useContext(FilterContext);
+  const columnCount = getColumnCount(width);
+  const rowCount = Math.ceil(state.showingPokemonList.length / columnCount);
+  const columnWidth = width / columnCount;
+  const rowHeight = columnWidth * 1.4;
   return (
-    <>
-      <ListWrap>
-        {state.showingPokemonList.map((pokemon, index) => (
-          <Card
+    <Grid
+      columnCount={columnCount}
+      rowCount={rowCount}
+      columnWidth={columnWidth}
+      rowHeight={rowHeight}
+      width={width}
+      height={height}
+    >
+      {({ columnIndex, rowIndex, style }) => {
+        const index = rowIndex * columnCount + columnIndex;
+        const pokemon = state.showingPokemonList[index];
+        if (!pokemon) return null;
+        return (
+          <CardItem
+            style={style}
             key={pokemon.id}
             layoutId={pokemon.id}
             animate={animationProps.animate}
@@ -56,42 +83,17 @@ export default function PokemonList() {
               </CardContentsInner>
             </CardContents>
             <ListNumber>No.{`${pokemon.id}`}</ListNumber>
-          </Card>
-        ))}
-      </ListWrap>
-    </>
+          </CardItem>
+        );
+      }}
+    </Grid>
   );
 }
 
-const ListWrap = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 2%;
-  width: 100%;
-  list-style: none;
+const CardItem = styled(motion.div)`
+  padding: 0 1%;
 `;
-const Card = styled(motion.li)`
-  width: 49%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5%;
-  @media ${device.overMobileL} {
-    width: 32%;
-  }
-  @media ${device.overTablet} {
-    width: 23.5%;
-  }
-  @media ${device.overLaptop} {
-    width: 15%;
-  }
-  @media ${device.overDesktop} {
-    width: 9%;
-  }
-`;
+
 const CardContents = styled.a`
   display: flex;
   flex-direction: column;

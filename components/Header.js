@@ -24,9 +24,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  width: 100%;
-  z-index: 10;
 `;
 const Heading = styled.h1`
   font-size: 40px;
