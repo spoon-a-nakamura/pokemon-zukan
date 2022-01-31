@@ -6,12 +6,10 @@ import { FilterContext } from './FilterReducer';
 import pokemonData from '../data/pokemon_full.json';
 
 export default function SearchWord() {
-  console.log('Render SearchWord');
   const { state, dispatch } = useContext(FilterContext);
 
   // 検索しているテキストをStateに反映
   const handleSearchWord = (e) => {
-    console.log(`検索中...：${state.inputSearchWord}`);
     return e.target.value;
   };
 
@@ -27,7 +25,6 @@ export default function SearchWord() {
             value.name.japanese.includes(state.inputSearchWord) && value,
         )
       : pokemonData;
-    console.log(`検索実行：${state.inputSearchWord}`);
     return inputSearchWordResult;
   };
 

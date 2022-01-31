@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { device } from '../components/MediaQuery';
 
 export default function FixedButton() {
-  console.log('Render FixedButton');
   const { dispatch } = useContext(FilterContext);
   return (
     <Button

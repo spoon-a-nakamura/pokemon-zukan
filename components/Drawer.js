@@ -5,7 +5,6 @@ import SearchTypes from './SearchTypes';
 import { device } from '../components/MediaQuery';
 
 export default function Drawer() {
-  console.log('Render Drawer');
   const { state, dispatch } = useContext(FilterContext);
   return (
     <Wrapper isDrawerOpen={state.isDrawerOpen}>

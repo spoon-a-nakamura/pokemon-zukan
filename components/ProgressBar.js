@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { device } from '../components/MediaQuery';
 
 export default function ProgressBar({ value }) {
-  console.log('Render ProgressBar');
   const transition = {
     duration: 1,
     delay: 0.2,

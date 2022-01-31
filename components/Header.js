@@ -5,7 +5,6 @@ import FixedButton from '../components/FixedButton';
 import { device } from '../components/MediaQuery';
 
 export default function Header() {
-  console.log('Render Header');
   const reload = () => Router.reload();
   return (
     <Wrapper>

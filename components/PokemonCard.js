@@ -19,7 +19,6 @@ const LazyImageMemo = React.memo((props) => {
   );
 });
 export default function PokemonCard({ id, pokemon }) {
-  console.log('Render PokemonCard');
   return (
     <Card layoutId={id}>
       <NameWrapper>

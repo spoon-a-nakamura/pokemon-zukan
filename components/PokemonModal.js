@@ -7,7 +7,6 @@ import { animationProps } from '../components/Utility';
 import { device } from '../components/MediaQuery';
 
 export default function PokemonModal() {
-  console.log('Render PokemonModal');
   const { state, dispatch } = useContext(FilterContext);
   return (
     <>
