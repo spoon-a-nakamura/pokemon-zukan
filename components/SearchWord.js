@@ -1,46 +1,43 @@
-import { useState, useContext } from 'react'
-import styled from '@emotion/styled'
-import { device } from '../components/MediaQuery'
-import { FilterContext } from './FilterReducer'
+import { useState, useContext } from 'react';
+import styled from '@emotion/styled';
+import { device } from '../components/MediaQuery';
+import { FilterContext } from './FilterReducer';
 // import pokemonData from '../data/pokemon.json'
-import pokemonData from '../data/pokemon_full.json'
+import pokemonData from '../data/pokemon_full.json';
 
 export default function SearchWord() {
-  console.log('Render SearchWord')
-  const { state, dispatch } = useContext(FilterContext)
+  const { state, dispatch } = useContext(FilterContext);
 
   // 検索しているテキストをStateに反映
   const handleSearchWord = (e) => {
-    console.log(`検索中...：${state.inputSearchWord}`)
-    return e.target.value
-  }
+    return e.target.value;
+  };
 
   // 検索したテキストによってフィルタされた配列を管理
   const filterPokemonList = (e) => {
     // formのsubmitなので、preventDefault
-    e.preventDefault()
+    e.preventDefault();
 
     // 検索したテキストが部分一致すればそのポケモンを。入力値が空であれば全数を返す。
     const inputSearchWordResult = state.inputSearchWord
       ? pokemonData.filter(
           (value) =>
-            value.name.japanese.includes(state.inputSearchWord) && value
+            value.name.japanese.includes(state.inputSearchWord) && value,
         )
-      : pokemonData
-    console.log(`検索実行：${state.inputSearchWord}`)
-    return inputSearchWordResult
-  }
+      : pokemonData;
+    return inputSearchWordResult;
+  };
 
   // 検索実行後の１秒間管理（ピカチューを走らせる為）
   // かつ、Framerの挙動がおかしくなるので、filterPokemonList関数を実行する前に一度ポケモンリストを空にする
-  const [clickSubmit, setClickSubmit] = useState(false)
+  const [clickSubmit, setClickSubmit] = useState(false);
   const onClickSubmit = () => {
-    setClickSubmit(true)
+    setClickSubmit(true);
     setTimeout(() => {
-      setClickSubmit(false)
-    }, 1000)
-    return []
-  }
+      setClickSubmit(false);
+    }, 1000);
+    return [];
+  };
 
   return (
     <SearchWrapper
@@ -48,12 +45,12 @@ export default function SearchWord() {
         dispatch({
           type: 'setShowingPokemonList',
           showingPokemonList: filterPokemonList(e),
-        })
+        });
       }}
     >
       <Search
-        type='text'
-        placeholder='SEARCH YOUR FAVORITE POKEMON'
+        type="text"
+        placeholder="SEARCH YOUR FAVORITE POKEMON"
         onChange={(e) =>
           dispatch({
             type: 'setInputSearchWord',
@@ -62,7 +59,7 @@ export default function SearchWord() {
         }
       />
       <SearchSubmit
-        type='submit'
+        type="submit"
         onClick={() =>
           dispatch({
             type: 'setShowingPokemonList',
@@ -72,7 +69,7 @@ export default function SearchWord() {
         clickSubmit={clickSubmit}
       ></SearchSubmit>
     </SearchWrapper>
-  )
+  );
 }
 
 const SearchWrapper = styled.form`
@@ -84,7 +81,7 @@ const SearchWrapper = styled.form`
   @media ${device.underTablet} {
     display: none;
   }
-`
+`;
 const Search = styled.input`
   background: rgba(0, 0, 0, 0.05);
   border-radius: 120px 0 0 120px;
@@ -97,7 +94,7 @@ const Search = styled.input`
   &::placeholder {
     color: #ccc;
   }
-`
+`;
 const SearchSubmit = styled.button`
   background: rgba(0, 0, 0, 0.05) url(/images/common/pika.gif) 0 center /
     contain no-repeat;
@@ -135,4 +132,4 @@ const SearchSubmit = styled.button`
       background-position: 0px center;
     }
   }
-`
+`;

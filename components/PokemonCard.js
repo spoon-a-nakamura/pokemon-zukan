@@ -1,26 +1,24 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
-import pokemonTypes from '../data/types.json'
-import { zeroPadding } from '../components/Utility'
-import ProgressBar from './ProgressBar'
-import LazyImage from '../components/LazyImage'
-import { device } from '../components/MediaQuery'
+import React from 'react';
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import pokemonTypes from '../data/types.json';
+import { zeroPadding } from '../components/Utility';
+import ProgressBar from './ProgressBar';
+import LazyImage from '../components/LazyImage';
+import { device } from '../components/MediaQuery';
 
 const LazyImageMemo = React.memo((props) => {
   return (
     <LazyImage
-      key={props.key}
       src={`/images/pokemon/${zeroPadding(props.src)}.png`}
       alt={props.alt}
       width={400}
       height={400}
       modal={true}
     />
-  )
-})
+  );
+});
 export default function PokemonCard({ id, pokemon }) {
-  console.log('Render PokemonCard')
   return (
     <Card layoutId={id}>
       <NameWrapper>
@@ -34,10 +32,10 @@ export default function PokemonCard({ id, pokemon }) {
             <TypeList key={index}>
               {pokemonTypes.map(
                 (pokemonType) =>
-                  pokemonType.english === type && pokemonType.japanese
+                  pokemonType.english === type && pokemonType.japanese,
               )}
             </TypeList>
-          )
+          );
         })}
       </TypeListWrap>
       <StatusListWrap>
@@ -71,7 +69,7 @@ export default function PokemonCard({ id, pokemon }) {
         </StatusList>
       </StatusListWrap>
     </Card>
-  )
+  );
 }
 
 const Card = styled(motion.div)`
@@ -85,17 +83,17 @@ const Card = styled(motion.div)`
   width: fit-content;
   height: fit-content;
   margin: auto;
-`
+`;
 const NameWrapper = styled.div`
   margin-bottom: 20px;
-`
+`;
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 1.1vw;
   @media ${device.underMobileL} {
     font-size: 3.5vw;
   }
-`
+`;
 const NameEnglish = styled.div`
   font-family: mr-eaves-modern, sans-serif;
   font-weight: 700;
@@ -106,7 +104,7 @@ const NameEnglish = styled.div`
   @media ${device.underMobileL} {
     font-size: 9vw;
   }
-`
+`;
 const TypeListWrap = styled.ul`
   display: flex;
   justify-content: center;
@@ -116,7 +114,7 @@ const TypeListWrap = styled.ul`
   background: rgba(0, 0, 0, 1);
   padding: 10px 30px 8px;
   border-radius: 100px;
-`
+`;
 const TypeList = styled.li`
   font-size: 14px;
   color: #fff;
@@ -132,13 +130,13 @@ const TypeList = styled.li`
   @media ${device.underMobileL} {
     font-size: 12px;
   }
-`
+`;
 const StatusListWrap = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: auto;
   max-height: 190px;
-`
+`;
 const StatusList = styled.li`
   display: flex;
   width: 100%;
@@ -146,8 +144,8 @@ const StatusList = styled.li`
   @media ${device.underMobileL} {
     font-size: 4vw;
   }
-`
+`;
 const StatusListCaption = styled.p`
   font-family: tbcgothic-std, sans-serif;
   margin-right: 10px;
-`
+`;

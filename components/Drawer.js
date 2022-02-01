@@ -1,12 +1,11 @@
-import { useContext } from 'react'
-import { FilterContext } from '../components/FilterReducer'
-import styled from '@emotion/styled'
-import SearchTypes from './SearchTypes'
-import { device } from '../components/MediaQuery'
+import { useContext } from 'react';
+import { FilterContext } from '../components/FilterReducer';
+import styled from '@emotion/styled';
+import SearchTypes from './SearchTypes';
+import { device } from '../components/MediaQuery';
 
 export default function Drawer() {
-  console.log('Render Drawer')
-  const { state, dispatch } = useContext(FilterContext)
+  const { state, dispatch } = useContext(FilterContext);
   return (
     <Wrapper isDrawerOpen={state.isDrawerOpen}>
       <Close
@@ -15,20 +14,22 @@ export default function Drawer() {
           dispatch({
             type: 'setIsDrawerOpen',
             isDrawerOpen: false,
-          })
+          });
         }}
       >
         CLOSE
       </Close>
       <SearchTypes />
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
-  right: ${({ isDrawerOpen }) => (isDrawerOpen ? '0' : '-70%')};
+  right: 0;
+  transform: ${({ isDrawerOpen }) =>
+    `translateX(${isDrawerOpen ? 0 : '100%'})`};
   width: 200px;
   height: 100vh;
   overflow: hidden;
@@ -41,8 +42,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.05);
   z-index: 20;
-  transition: right ease-in-out 1s;
-`
+  transition: transform ease-in-out 0.3s;
+`;
 const Close = styled.div`
   width: 100%;
   font-size: 25px;
@@ -59,4 +60,4 @@ const Close = styled.div`
   @media ${device.underMobileL} {
     font-size: 20px;
   }
-`
+`;

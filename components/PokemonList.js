@@ -1,98 +1,114 @@
-import React, { useContext } from 'react'
-import styled from '@emotion/styled'
-import { FilterContext } from '../components/FilterReducer'
-import { animationProps, zeroPadding } from '../components/Utility'
-import { motion } from 'framer-motion'
-import { device } from '../components/MediaQuery'
-import LazyImage from '../components/LazyImage'
+import React, { useContext } from 'react';
+import styled from '@emotion/styled';
+import { FilterContext } from '../components/FilterReducer';
+import { animationProps, zeroPadding } from '../components/Utility';
+import { motion } from 'framer-motion';
+import { device } from '../components/MediaQuery';
+import LazyImage from '../components/LazyImage';
+import { FixedSizeGrid as Grid } from 'react-window';
 
 const LazyImageMemo = React.memo((props) => {
   return (
     <LazyImage
-      key={props.key}
       src={`/images/pokemon/${zeroPadding(props.src)}.png`}
       alt={props.alt}
       width={400}
       height={400}
       modal={false}
     />
-  )
-})
-export default function PokemonList() {
-  console.log('Render PokemonList')
-  const { state, dispatch } = useContext(FilterContext)
-  return (
-    <>
-      <ListWrap>
-        {state.showingPokemonList.map((pokemon, index) => (
-          <Card
-            key={index}
-            layoutId={index + 1}
-            animate={animationProps.animate}
-            exit={animationProps.exit}
-            onClick={() => {
-              dispatch({
-                type: 'setShowDetailPokemonTarget',
-                showDetailPokemonTarget: index + 1,
-              })
-              dispatch({
-                type: 'setIsDrawerOpen',
-                isDrawerOpen: false,
-              })
-            }}
-          >
-            <CardContents>
-              <CardContentsInner>
-                <NameWrapper>
-                  <NameEnglish>{pokemon.name.english}</NameEnglish>
-                  <NameJapanese>{pokemon.name.japanese}</NameJapanese>
-                </NameWrapper>
-                <ImageWrapper>
-                  <LazyImageMemo
-                    key={index}
-                    src={pokemon.id}
-                    alt={pokemon.name.japanese}
-                  />
-                </ImageWrapper>
-              </CardContentsInner>
-            </CardContents>
-            <ListNumber>No.{`${pokemon.id}`}</ListNumber>
-          </Card>
-        ))}
-      </ListWrap>
-    </>
-  )
+  );
+});
+
+function getColumnCount(width) {
+  if (width >= 1024) {
+    return 6;
+  } else if (width >= 768) {
+    return 4;
+  } else if (width >= 425) {
+    return 3;
+  }
+  return 2;
 }
 
-const ListWrap = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 2%;
-  width: 100%;
-  list-style: none;
-`
-const Card = styled(motion.li)`
-  width: 49%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5%;
-  @media ${device.overMobileL} {
-    width: 32%;
-  }
-  @media ${device.overTablet} {
-    width: 23.5%;
-  }
-  @media ${device.overLaptop} {
-    width: 15%;
-  }
-  @media ${device.overDesktop} {
-    width: 9%;
-  }
-`
+const MemoizedPokemonList = React.memo(
+  ({ width, height, showingPokemonList, dispatch }) => {
+    const columnCount = getColumnCount(width);
+    const rowCount = Math.ceil(showingPokemonList.length / columnCount);
+    const columnWidth = width / columnCount;
+    const rowHeight = columnWidth * 1.4;
+    return (
+      <Grid
+        columnCount={columnCount}
+        rowCount={rowCount}
+        columnWidth={columnWidth}
+        rowHeight={rowHeight}
+        width={width}
+        height={height}
+      >
+        {({ columnIndex, rowIndex, style }) => {
+          const index = rowIndex * columnCount + columnIndex;
+          const pokemon = showingPokemonList[index];
+          if (!pokemon) return null;
+          return (
+            <CardItem
+              style={style}
+              key={pokemon.id}
+              layoutId={pokemon.id}
+              animate={animationProps.animate}
+              exit={animationProps.exit}
+              onClick={() => {
+                dispatch({
+                  type: 'setShowDetailPokemonTarget',
+                  showDetailPokemonTarget: index + 1,
+                });
+                dispatch({
+                  type: 'setIsDrawerOpen',
+                  isDrawerOpen: false,
+                });
+              }}
+            >
+              <CardContents>
+                <CardContentsInner>
+                  <NameWrapper>
+                    <NameEnglish>{pokemon.name.english}</NameEnglish>
+                    <NameJapanese>{pokemon.name.japanese}</NameJapanese>
+                  </NameWrapper>
+                  <ImageWrapper>
+                    <LazyImageMemo
+                      key={index}
+                      src={pokemon.id}
+                      alt={pokemon.name.japanese}
+                    />
+                  </ImageWrapper>
+                </CardContentsInner>
+              </CardContents>
+              <ListNumber>No.{`${pokemon.id}`}</ListNumber>
+            </CardItem>
+          );
+        }}
+      </Grid>
+    );
+  },
+);
+
+const PokemonList = ({ width, height }) => {
+  const { state, dispatch } = useContext(FilterContext);
+  return (
+    <MemoizedPokemonList
+      width={width}
+      height={height}
+      dispatch={dispatch}
+      showingPokemonList={state.showingPokemonList}
+    />
+  );
+};
+
+export default PokemonList;
+
+const CardItem = styled(motion.div)`
+  padding: 0 1%;
+`;
+
 const CardContents = styled.a`
   display: flex;
   flex-direction: column;
@@ -104,20 +120,20 @@ const CardContents = styled.a`
   cursor: pointer;
   transition: all ease-in-out 0.5s;
   will-change: transform, box-shadow;
-`
+`;
 const CardContentsInner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 const NameWrapper = styled.div`
   margin-bottom: 15px;
   margin-top: auto;
   @media ${device.underMobileL} {
     margin-bottom: 5px;
   }
-`
+`;
 const NameEnglish = styled.div`
   font-family: mr-eaves-modern, sans-serif;
   font-weight: 700;
@@ -132,7 +148,7 @@ const NameEnglish = styled.div`
   @media ${device.underMobileL} {
     font-size: 5vw;
   }
-`
+`;
 const NameJapanese = styled.div`
   text-align: center;
   font-size: 12px;
@@ -142,7 +158,7 @@ const NameJapanese = styled.div`
   @media ${device.underMobileL} {
     font-size: 3vw;
   }
-`
+`;
 const ImageWrapper = styled.div`
   position: relative;
   transition: all ease-in-out 0.3s;
@@ -168,7 +184,7 @@ const ImageWrapper = styled.div`
       transform: translateY(-50%) translateX(-50%) scale(1);
     }
   }
-`
+`;
 const ListNumber = styled.p`
   font-size: 13px;
   text-align: center;
@@ -177,4 +193,4 @@ const ListNumber = styled.p`
   @media ${device.underMobileL} {
     margin-top: -15px;
   }
-`
+`;

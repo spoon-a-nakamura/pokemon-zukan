@@ -1,24 +1,22 @@
-import { useState, useEffect } from 'react'
-import styled from '@emotion/styled'
-import { device } from '../components/MediaQuery'
+import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { device } from '../components/MediaQuery';
 
 export default function LazyImage({ src, alt, width, height, modal }) {
-  console.log('Render LazyImage')
-
-  const [imageSrc, setImageSrc] = useState('/images/common/pokemon_ball.gif')
-  const [imageRef, setImageRef] = useState()
+  const [imageSrc, setImageSrc] = useState('/images/common/pokemon_ball.gif');
+  const [imageRef, setImageRef] = useState();
 
   const onLoad = (event) => {
-    event.target.classList.add('is-loaded')
-  }
+    event.target.classList.add('is-loaded');
+  };
 
   const onError = (event) => {
-    event.target.classList.add('has-error')
-  }
+    event.target.classList.add('has-error');
+  };
 
   useEffect(() => {
-    let observer
-    let didCancel = false
+    let observer;
+    let didCancel = false;
 
     if (imageRef && imageSrc !== src) {
       if (IntersectionObserver) {
@@ -29,28 +27,28 @@ export default function LazyImage({ src, alt, width, height, modal }) {
                 !didCancel &&
                 (entry.intersectionRatio > 0 || entry.isIntersecting)
               ) {
-                setImageSrc(src)
-                observer.unobserve(imageRef)
+                setImageSrc(src);
+                observer.unobserve(imageRef);
               }
-            })
+            });
           },
           {
             threshold: 0.01,
             rootMargin: '75%',
-          }
-        )
-        observer.observe(imageRef)
+          },
+        );
+        observer.observe(imageRef);
       } else {
-        setImageSrc(src)
+        setImageSrc(src);
       }
     }
     return () => {
-      didCancel = true
+      didCancel = true;
       if (observer && observer.unobserve) {
-        observer.unobserve(imageRef)
+        observer.unobserve(imageRef);
       }
-    }
-  }, [src, imageSrc, imageRef])
+    };
+  }, [src, imageSrc, imageRef]);
   return (
     <Image
       ref={setImageRef}
@@ -62,7 +60,7 @@ export default function LazyImage({ src, alt, width, height, modal }) {
       onError={onError}
       modal={modal}
     />
-  )
+  );
 }
 
 const Image = styled.img`
@@ -94,4 +92,4 @@ const Image = styled.img`
       transform: scale(1);
     }
   }
-`
+`;
