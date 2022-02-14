@@ -1,3 +1,6 @@
+import { useMemo } from 'react';
+import data from '../data/pokemon_full.json';
+
 // Framer 共通トランジション
 export const animationProps = {
   transition: {
@@ -16,12 +19,10 @@ export function zeroPadding(id) {
   return `${id}`.padStart(3, '0');
 }
 
-export function filterPokemon(pokemonData, s, type = 'All') {
+function filterPokemon(pokemonData, s, type = 'All') {
   const pokemonListFilteredByType =
     type !== 'All'
-      ? pokemonData.filter((pokemon) => {
-          pokemon.type.includes(type);
-        })
+      ? pokemonData.filter((pokemon) => pokemon.type.includes(type))
       : pokemonData;
 
   return s
@@ -29,4 +30,8 @@ export function filterPokemon(pokemonData, s, type = 'All') {
         return pokemon.name.japanese.includes(s);
       })
     : pokemonListFilteredByType;
+}
+
+export function useFilteredPokemonList(s, type = 'All') {
+  return useMemo(() => filterPokemon(data, s, type), [s, type]);
 }

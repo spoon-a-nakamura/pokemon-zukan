@@ -4,6 +4,7 @@ import { FilterContext } from '../components/FilterReducer';
 import {
   animationProps,
   filterPokemon,
+  useFilteredPokemonList,
   zeroPadding,
 } from '../components/Utility';
 import { motion } from 'framer-motion';
@@ -98,7 +99,10 @@ const MemoizedPokemonList = React.memo(
 
 const PokemonList = ({ width, height }) => {
   const { state, dispatch } = useContext(FilterContext);
-  const pokemonList = filterPokemon(pokemonData, state.inputSearchWord);
+  const pokemonList = useFilteredPokemonList(
+    state.inputSearchWord,
+    state.selectedType,
+  );
   return (
     <MemoizedPokemonList
       width={width}
