@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import { device } from '../components/MediaQuery';
 import { FilterContext } from './FilterReducer';
 
-export default function SearchWord() {
+export default function SearchWord({ className, placeholder = 'SEARCH' }) {
   const { state, dispatch } = useContext(FilterContext);
 
   return (
-    <SearchWrapper>
+    <SearchWrapper className={className}>
       <Search
         type="text"
-        placeholder="SEARCH YOUR FAVORITE POKEMON"
+        placeholder={placeholder}
         value={state.inputSearchWord}
         onChange={(e) =>
           dispatch({
@@ -27,16 +27,11 @@ const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
-  margin-left: auto;
-  @media ${device.underTablet} {
-    display: none;
-  }
 `;
 const Search = styled.input`
   background: rgba(0, 0, 0, 0.05);
   border-radius: 120px;
-  padding: 15px 5px 15px 30px;
+  padding: 15px 30px;
   border: none;
   font-size: 20px;
   width: 90%;

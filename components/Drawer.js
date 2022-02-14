@@ -3,6 +3,7 @@ import { FilterContext } from '../components/FilterReducer';
 import styled from '@emotion/styled';
 import SearchTypes from './SearchTypes';
 import { device } from '../components/MediaQuery';
+import SearchWord from './SearchWord';
 
 export default function Drawer() {
   const { state, dispatch } = useContext(FilterContext);
@@ -19,6 +20,7 @@ export default function Drawer() {
       >
         CLOSE
       </Close>
+      <SearchWordField placeholder="SEARCH" />
       <SearchTypes />
     </Wrapper>
   );
@@ -59,5 +61,12 @@ const Close = styled.div`
   }
   @media ${device.underMobileL} {
     font-size: 20px;
+  }
+`;
+
+const SearchWordField = styled(SearchWord)`
+  margin-bottom: 20px;
+  @media (min-width: 769px) {
+    display: none;
   }
 `;

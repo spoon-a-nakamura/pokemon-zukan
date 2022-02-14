@@ -8,6 +8,12 @@ const size = {
   desktop: '2560px',
 };
 
+/**
+ * WARNING:
+ *
+ * ブレイクポイントを over, underともに共通のサイズで指定するため、
+ * overTablet と underTablet は768pxが両方にマッチすることに注意が必要
+ */
 export const device = {
   overMobileS: `(min-width: ${size.mobileS})`,
   overMobileM: `(min-width: ${size.mobileM})`,

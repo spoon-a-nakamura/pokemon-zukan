@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <Wrapper>
       <Heading onClick={reload}>POKEMON ZUKAN</Heading>
-      <SearchWord />
+      <SearchWordField placeholder="SEARCH YOUR FAVORITE POKEMON" />
       <FixedButton />
     </Wrapper>
   );
@@ -30,5 +30,13 @@ const Heading = styled.h1`
   cursor: pointer;
   @media ${device.underMobileL} {
     font-size: 30px;
+  }
+`;
+
+const SearchWordField = styled(SearchWord)`
+  flex: 1;
+  margin-left: auto;
+  @media ${device.underTablet} {
+    display: none;
   }
 `;
