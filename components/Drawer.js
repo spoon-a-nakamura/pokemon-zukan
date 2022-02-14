@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   transform: ${({ isDrawerOpen }) =>
     `translateX(${isDrawerOpen ? 0 : '100%'})`};
   width: 200px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);
