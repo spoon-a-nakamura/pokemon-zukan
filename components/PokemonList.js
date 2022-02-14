@@ -11,7 +11,6 @@ import { motion } from 'framer-motion';
 import { device } from '../components/MediaQuery';
 import LazyImage from '../components/LazyImage';
 import { FixedSizeGrid as Grid } from 'react-window';
-import pokemonData from '../data/pokemon_full.json';
 
 const LazyImageMemo = React.memo((props) => {
   return (

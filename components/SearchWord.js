@@ -2,8 +2,6 @@ import { useState, useContext } from 'react';
 import styled from '@emotion/styled';
 import { device } from '../components/MediaQuery';
 import { FilterContext } from './FilterReducer';
-// import pokemonData from '../data/pokemon.json'
-import pokemonData from '../data/pokemon_full.json';
 
 export default function SearchWord() {
   const { state, dispatch } = useContext(FilterContext);
