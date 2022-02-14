@@ -3,42 +3,9 @@ import styled from '@emotion/styled';
 import { FilterContext } from './FilterReducer';
 import { device } from '../components/MediaQuery';
 import pokemonTypes from '../data/types.json';
-// import pokemonData from '../data/pokemon.json'
-import pokemonData from '../data/pokemon_full.json';
 
 export default function SearchTypes() {
   const { state, dispatch } = useContext(FilterContext);
-
-  // 表示用のState：選択した属性をBooleanで管理
-  const newSelectedState = (index) => {
-    return state.selectedTypes.map((state, innerIndex) =>
-      index === innerIndex ? true : false,
-    );
-  };
-
-  // フィルタ用のState：選択した属性の配列を返す
-  const filterSelectedType = (e) => {
-    // 選択した属性のオブジェクトを取得
-    const selectedTypeName = pokemonTypes.filter((type) => {
-      return type.japanese === e.target.textContent && type;
-    });
-    // 上記で取得したオブジェクトの英語名を取得
-    const selectedTypeEnglishName = selectedTypeName[0].english;
-
-    // 現在の表示されているリストからさらに指定した属性で絞り込み
-    if (e.target.textContent === 'すべて') {
-      return pokemonData;
-    } else {
-      return pokemonData.filter(
-        (value) => value.type.includes(selectedTypeEnglishName) && value,
-      );
-    }
-  };
-
-  // リセット用のState
-  const resetSearchField = () => {
-    return null;
-  };
 
   return (
     <Container>
@@ -48,19 +15,11 @@ export default function SearchTypes() {
             key={index}
             onClick={(e) => {
               dispatch({
-                type: 'setSelectedTypes',
-                selectedTypes: newSelectedState(index),
-              });
-              dispatch({
-                type: 'setShowingPokemonList',
-                showingPokemonList: filterSelectedType(e),
-              });
-              dispatch({
-                type: 'setInputSearchWord',
-                inputSearchWord: resetSearchField(),
+                type: 'setSelectedType',
+                selectedType: type.english,
               });
             }}
-            selectedTypes={state.selectedTypes[index]}
+            selectedType={state.selectedType === type.english}
           >
             {type.japanese}
           </List>
@@ -94,13 +53,13 @@ const List = styled.li`
   cursor: pointer;
   border-bottom: 1px solid #ddd;
   transition: all ease-in-out 0.3s;
-  padding: ${({ selectedTypes }) => (selectedTypes ? '40px 20px' : '20px')};
-  background: ${({ selectedTypes }) =>
-    selectedTypes ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0)'};
+  padding: ${({ selectedType }) => (selectedType ? '40px 20px' : '20px')};
+  background: ${({ selectedType }) =>
+    selectedType ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0)'};
   &:hover {
     padding-left: 30px;
-    background: ${({ selectedTypes }) =>
-      selectedTypes ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.02)'};
+    background: ${({ selectedType }) =>
+      selectedType ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.02)'};
   }
   @media ${device.underMobileL} {
     font-size: 12px;
