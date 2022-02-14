@@ -64,8 +64,8 @@ const MemoizedPokemonList = React.memo(
               exit={animationProps.exit}
               onClick={() => {
                 dispatch({
-                  type: 'setShowDetailPokemonTarget',
-                  showDetailPokemonTarget: index + 1,
+                  type: 'setSetectedPokemonIndex',
+                  index,
                 });
                 dispatch({
                   type: 'setIsDrawerOpen',

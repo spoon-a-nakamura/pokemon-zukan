@@ -16,14 +16,14 @@ export default function PokemonModal() {
     <>
       {pokemonList.map(
         (pokemon, index) =>
-          state.showDetailPokemonTarget === index + 1 && (
+          state.setectedPokemonIndex === index && (
             <Modal key={index} transition={animationProps.transition}>
               <ModalContent>
                 <Close
                   onClick={() => {
                     dispatch({
-                      type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget: null,
+                      type: 'setSetectedPokemonIndex',
+                      index: null,
                     });
                   }}
                 />
@@ -37,8 +37,8 @@ export default function PokemonModal() {
                 <ModalButton
                   onClick={() => {
                     dispatch({
-                      type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget: index,
+                      type: 'setSetectedPokemonIndex',
+                      index: index - 1,
                     });
                   }}
                   initial={animationProps.initial}
@@ -53,8 +53,8 @@ export default function PokemonModal() {
                 <ModalCard
                   onClick={() => {
                     dispatch({
-                      type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget: null,
+                      type: 'setSetectedPokemonIndex',
+                      index: null,
                     });
                   }}
                   transition={animationProps.transition}
@@ -65,8 +65,8 @@ export default function PokemonModal() {
                 <ModalButton
                   onClick={() => {
                     dispatch({
-                      type: 'setShowDetailPokemonTarget',
-                      showDetailPokemonTarget: index + 2,
+                      type: 'setSetectedPokemonIndex',
+                      index: index + 1,
                     });
                   }}
                   initial={animationProps.initial}
