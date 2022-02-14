@@ -35,11 +35,6 @@ export default function SearchTypes() {
     }
   };
 
-  // リセット用のState
-  const resetSearchField = () => {
-    return null;
-  };
-
   return (
     <Container>
       <ListWrapper>
@@ -57,7 +52,7 @@ export default function SearchTypes() {
               });
               dispatch({
                 type: 'setInputSearchWord',
-                inputSearchWord: resetSearchField(),
+                inputSearchWord: '',
               });
             }}
             selectedTypes={state.selectedTypes[index]}

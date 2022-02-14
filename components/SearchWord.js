@@ -51,6 +51,7 @@ export default function SearchWord() {
       <Search
         type="text"
         placeholder="SEARCH YOUR FAVORITE POKEMON"
+        value={state.inputSearchWord}
         onChange={(e) =>
           dispatch({
             type: 'setInputSearchWord',
