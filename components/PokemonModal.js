@@ -3,14 +3,18 @@ import styled from '@emotion/styled';
 import PokemonCard from '../components/PokemonCard';
 import { motion } from 'framer-motion';
 import { FilterContext } from '../components/FilterReducer';
-import { animationProps } from '../components/Utility';
+import { animationProps, useFilteredPokemonList } from '../components/Utility';
 import { device } from '../components/MediaQuery';
 
 export default function PokemonModal() {
   const { state, dispatch } = useContext(FilterContext);
+  const pokemonList = useFilteredPokemonList(
+    state.inputSearchWord,
+    state.selectedType,
+  );
   return (
     <>
-      {state.showingPokemonList.map(
+      {pokemonList.map(
         (pokemon, index) =>
           state.showDetailPokemonTarget === index + 1 && (
             <Modal key={index} transition={animationProps.transition}>
