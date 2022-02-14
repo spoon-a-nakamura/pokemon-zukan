@@ -60,7 +60,7 @@ export default function PokemonModal() {
                   transition={animationProps.transition}
                   animate={animationProps.animate}
                 >
-                  <PokemonCard id={index + 1} pokemon={pokemon} />
+                  <PokemonCard pokemon={pokemon} />
                 </ModalCard>
                 <ModalButton
                   onClick={() => {

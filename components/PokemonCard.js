@@ -18,14 +18,18 @@ const LazyImageMemo = React.memo((props) => {
     />
   );
 });
-export default function PokemonCard({ id, pokemon }) {
+export default function PokemonCard({ pokemon }) {
   return (
-    <Card layoutId={id}>
+    <Card layoutId={pokemon.id}>
       <NameWrapper>
         <NameEnglish>{pokemon.name.english}</NameEnglish>
         <NameJapanese>{pokemon.name.japanese}</NameJapanese>
       </NameWrapper>
-      <LazyImageMemo key={id} src={pokemon.id} alt={pokemon.name.japanese} />
+      <LazyImageMemo
+        key={pokemon.id}
+        src={pokemon.id}
+        alt={pokemon.name.japanese}
+      />
       <TypeListWrap>
         {pokemon.type.map((type, index) => {
           return (
