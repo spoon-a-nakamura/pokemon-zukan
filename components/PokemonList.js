@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { FilterContext } from '../components/FilterReducer';
-import { animationProps, zeroPadding } from '../components/Utility';
+import {
+  animationProps,
+  filterPokemon,
+  zeroPadding,
+} from '../components/Utility';
 import { motion } from 'framer-motion';
 import { device } from '../components/MediaQuery';
 import LazyImage from '../components/LazyImage';
 import { FixedSizeGrid as Grid } from 'react-window';
+import pokemonData from '../data/pokemon_full.json';
 
 const LazyImageMemo = React.memo((props) => {
   return (
@@ -31,9 +36,9 @@ function getColumnCount(width) {
 }
 
 const MemoizedPokemonList = React.memo(
-  ({ width, height, showingPokemonList, dispatch }) => {
+  ({ width, height, pokemonList, dispatch }) => {
     const columnCount = getColumnCount(width);
-    const rowCount = Math.ceil(showingPokemonList.length / columnCount);
+    const rowCount = Math.ceil(pokemonList.length / columnCount);
     const columnWidth = width / columnCount;
     const rowHeight = columnWidth * 1.4;
     return (
@@ -47,7 +52,7 @@ const MemoizedPokemonList = React.memo(
       >
         {({ columnIndex, rowIndex, style }) => {
           const index = rowIndex * columnCount + columnIndex;
-          const pokemon = showingPokemonList[index];
+          const pokemon = pokemonList[index];
           if (!pokemon) return null;
           return (
             <CardItem
@@ -93,12 +98,13 @@ const MemoizedPokemonList = React.memo(
 
 const PokemonList = ({ width, height }) => {
   const { state, dispatch } = useContext(FilterContext);
+  const pokemonList = filterPokemon(pokemonData, state.inputSearchWord);
   return (
     <MemoizedPokemonList
       width={width}
       height={height}
       dispatch={dispatch}
-      showingPokemonList={state.showingPokemonList}
+      pokemonList={pokemonList}
     />
   );
 };

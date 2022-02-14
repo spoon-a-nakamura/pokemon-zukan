@@ -10,7 +10,7 @@ export const FilterContext = createContext({});
 export const initialStates = {
   inputSearchWord: '',
   showingPokemonList: pokemonData,
-  selectedTypes: [true, ...[...Array(pokemonTypes.length - 1)].fill(false)],
+  selectedType: 'All',
   showDetailPokemonTarget: null,
   isDrawerOpen: false,
 };
@@ -22,8 +22,8 @@ export function FilterReducer(state, action) {
       return { ...state, inputSearchWord: action.inputSearchWord };
     case 'setShowingPokemonList':
       return { ...state, showingPokemonList: action.showingPokemonList };
-    case 'setSelectedTypes':
-      return { ...state, selectedTypes: action.selectedTypes };
+    case 'setSelectedType':
+      return { ...state, selectedType: action.selectedType };
     case 'setShowDetailPokemonTarget':
       return {
         ...state,

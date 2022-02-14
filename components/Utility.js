@@ -15,3 +15,18 @@ export const animationProps = {
 export function zeroPadding(id) {
   return `${id}`.padStart(3, '0');
 }
+
+export function filterPokemon(pokemonData, s, type = 'All') {
+  const pokemonListFilteredByType =
+    type !== 'All'
+      ? pokemonData.filter((pokemon) => {
+          pokemon.type.includes(type);
+        })
+      : pokemonData;
+
+  return s
+    ? pokemonListFilteredByType.filter((pokemon) => {
+        return pokemon.name.japanese.includes(s);
+      })
+    : pokemonListFilteredByType;
+}
