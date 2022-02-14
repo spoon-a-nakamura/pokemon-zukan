@@ -12,77 +12,75 @@ export default function PokemonModal() {
     state.inputSearchWord,
     state.selectedType,
   );
+  const index = state.setectedPokemonIndex;
+  const pokemon = pokemonList[index];
+
+  if (!pokemon) return null;
+
   return (
-    <>
-      {pokemonList.map(
-        (pokemon, index) =>
-          state.setectedPokemonIndex === index && (
-            <Modal key={index} transition={animationProps.transition}>
-              <ModalContent>
-                <Close
-                  onClick={() => {
-                    dispatch({
-                      type: 'setSetectedPokemonIndex',
-                      index: null,
-                    });
-                  }}
-                />
-                <Name
-                  initial={{ opacity: 0, y: '-50%' }}
-                  animate={{ opacity: 0.5, scale: [1.5, 0.6], y: '-50%' }}
-                  exit={{ opacity: 0, y: '-50%' }}
-                >
-                  {pokemon.name.english}
-                </Name>
-                <ModalButton
-                  onClick={() => {
-                    dispatch({
-                      type: 'setSetectedPokemonIndex',
-                      index: index - 1,
-                    });
-                  }}
-                  initial={animationProps.initial}
-                  animate={animationProps.animate}
-                  exit={animationProps.exit}
-                  whileHover={animationProps.whileHover.mini}
-                  transition={animationProps.transition}
-                  prev={true}
-                >
-                  ←
-                </ModalButton>
-                <ModalCard
-                  onClick={() => {
-                    dispatch({
-                      type: 'setSetectedPokemonIndex',
-                      index: null,
-                    });
-                  }}
-                  transition={animationProps.transition}
-                  animate={animationProps.animate}
-                >
-                  <PokemonCard pokemon={pokemon} />
-                </ModalCard>
-                <ModalButton
-                  onClick={() => {
-                    dispatch({
-                      type: 'setSetectedPokemonIndex',
-                      index: index + 1,
-                    });
-                  }}
-                  initial={animationProps.initial}
-                  animate={animationProps.animate}
-                  exit={animationProps.exit}
-                  whileHover={animationProps.whileHover.mini}
-                  transition={animationProps.transition}
-                  next={true}
-                >
-                  →
-                </ModalButton>
-              </ModalContent>
-            </Modal>
-          ),
-      )}
-    </>
+    <Modal key={index} transition={animationProps.transition}>
+      <ModalContent>
+        <Close
+          onClick={() => {
+            dispatch({
+              type: 'setSetectedPokemonIndex',
+              index: null,
+            });
+          }}
+        />
+        <Name
+          initial={{ opacity: 0, y: '-50%' }}
+          animate={{ opacity: 0.5, scale: [1.5, 0.6], y: '-50%' }}
+          exit={{ opacity: 0, y: '-50%' }}
+        >
+          {pokemon.name.english}
+        </Name>
+        <ModalButton
+          onClick={() => {
+            dispatch({
+              type: 'setSetectedPokemonIndex',
+              index: index - 1,
+            });
+          }}
+          initial={animationProps.initial}
+          animate={animationProps.animate}
+          exit={animationProps.exit}
+          whileHover={animationProps.whileHover.mini}
+          transition={animationProps.transition}
+          prev={true}
+        >
+          ←
+        </ModalButton>
+        <ModalCard
+          onClick={() => {
+            dispatch({
+              type: 'setSetectedPokemonIndex',
+              index: null,
+            });
+          }}
+          transition={animationProps.transition}
+          animate={animationProps.animate}
+        >
+          <PokemonCard pokemon={pokemon} />
+        </ModalCard>
+        <ModalButton
+          onClick={() => {
+            dispatch({
+              type: 'setSetectedPokemonIndex',
+              index: index + 1,
+            });
+          }}
+          initial={animationProps.initial}
+          animate={animationProps.animate}
+          exit={animationProps.exit}
+          whileHover={animationProps.whileHover.mini}
+          transition={animationProps.transition}
+          next={true}
+        >
+          →
+        </ModalButton>
+      </ModalContent>
+    </Modal>
   );
 }
 
