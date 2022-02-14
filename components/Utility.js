@@ -19,17 +19,32 @@ export function zeroPadding(id) {
   return `${id}`.padStart(3, '0');
 }
 
+function toHiragana(value) {
+  return value.replace(/[\u30a1-\u30f6]/g, (match) => {
+    const code = match.charCodeAt(0) - 0x60;
+    return String.fromCharCode(code);
+  });
+}
+
+function toKatakana(value) {
+  return value.replace(/[\u3041-\u3096]/g, (match) => {
+    const code = match.charCodeAt(0) + 0x60;
+    return String.fromCharCode(code);
+  });
+}
+
 function filterPokemon(pokemonData, s, type = 'All') {
   const pokemonListFilteredByType =
     type !== 'All'
       ? pokemonData.filter((pokemon) => pokemon.type.includes(type))
       : pokemonData;
 
-  return s
-    ? pokemonListFilteredByType.filter((pokemon) => {
-        return pokemon.name.japanese.includes(s);
-      })
-    : pokemonListFilteredByType;
+  if (!s) return pokemonListFilteredByType;
+  const words = [toHiragana(s), toKatakana(s)];
+
+  return pokemonListFilteredByType.filter((pokemon) => {
+    return words.some((word) => pokemon.name.japanese.includes(word));
+  });
 }
 
 export function useFilteredPokemonList(s, type = 'All') {
