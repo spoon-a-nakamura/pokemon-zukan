@@ -86,19 +86,19 @@ export default function PokemonModal() {
 
 const Modal = styled(motion.div)`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   display: flex;
   flex-wrap: wrap;
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(15px);
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   pointer-events: none;
   z-index: 100;
   transition: all ease 0.5s;
+  overflow-y: auto;
   & + div {
     background: rgba(0, 0, 0, 0);
   }
@@ -109,8 +109,8 @@ const ModalContent = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   pointer-events: none;
+  padding-bottom: 20px;
   @media ${device.underMobileL} {
     padding: 20px 0;
   }
@@ -133,7 +133,11 @@ const ModalCard = styled(motion.div)`
     margin: auto;
   }
 `;
-const ModalButton = styled(motion.div)`
+const ModalButton = styled(motion.button)`
+  appearance: none;
+  border: none;
+  padding: 8px 0 0;
+  line-height: 1;
   background: #000;
   border-radius: 100px;
   width: 70px;
@@ -144,7 +148,6 @@ const ModalButton = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 7px;
   cursor: pointer;
   pointer-events: initial;
   &:hover {
