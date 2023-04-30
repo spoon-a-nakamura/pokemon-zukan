@@ -36,6 +36,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: calc(100% - 74px);
+  @media ${device.underMobileL} {
+    padding-bottom: 74px;
+  }
 `;
 const ListWrapper = styled.ul`
   display: flex;
